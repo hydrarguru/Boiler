@@ -13,7 +13,7 @@ private:
 	float dt;
 
 	/*Init*/
-	void initWindow(const int WIDTH, const int HEIGHT, const std::string windowTitle);
+	void initWindow();
 
 public:
 	//Constructor - Destructor

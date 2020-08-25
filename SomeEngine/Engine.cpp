@@ -1,16 +1,32 @@
 #include "Engine.h"
 
-void Engine::initWindow(const int WIDTH, const int HEIGHT, const std::string windowTitle)
+void Engine::initWindow()
 {
 	loadFont();
-	this->window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), windowTitle);
-	this->window->setVerticalSyncEnabled(true);
-	std::cout << "Boiler initialized" << std::endl;
+	std::ifstream ifs("window.ini");
+
+	std::string windowTitle = "";
+	sf::VideoMode windowBounds(1280,720);
+	unsigned framerateLimit = 60;
+	bool vsyncEnabled = false;
+
+	if (ifs.is_open())
+	{
+		std::getline(ifs, windowTitle);
+		ifs >> windowBounds.width >> windowBounds.height;
+		ifs >> framerateLimit;
+		ifs >> vsyncEnabled;
+	}
+
+
+	this->window = new sf::RenderWindow(windowBounds, windowTitle);
+	this->window->setFramerateLimit(framerateLimit);
+	this->window->setVerticalSyncEnabled(vsyncEnabled);
 }
 
 Engine::Engine()
 {
-	initWindow(1280, 720, "Boiler");
+	initWindow();
 }
 Engine::~Engine()
 {
