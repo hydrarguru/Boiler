@@ -5,7 +5,5 @@ int main()
 {
 	Engine boiler;
 	boiler.Run();
-
-
 	return 0;
 }

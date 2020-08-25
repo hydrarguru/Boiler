@@ -2,9 +2,10 @@
 
 void Engine::initWindow(const int WIDTH, const int HEIGHT, const std::string windowTitle)
 {
-	this->window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), windowTitle);
-	std::cout << "Boiler initialized" << std::endl;
 	loadFont();
+	this->window = new sf::RenderWindow(sf::VideoMode(WIDTH, HEIGHT), windowTitle);
+	this->window->setVerticalSyncEnabled(true);
+	std::cout << "Boiler initialized" << std::endl;
 }
 
 Engine::Engine()
@@ -14,6 +15,11 @@ Engine::Engine()
 Engine::~Engine()
 {
 	delete this->window;
+}
+void Engine::UpdateDt()
+{
+	this->dt = this->dtClock.restart().asSeconds();
+	
 }
 /*Functions*/
 void Engine::updateSFMLEvents()
@@ -37,6 +43,7 @@ void Engine::Run()
 {
 	while (this->window->isOpen())
 	{
+		this->UpdateDt();
 		this->Update();
 		this->Render();
 	}
