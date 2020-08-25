@@ -12,5 +12,5 @@ public:
 	/*Functions*/
 	void endState();
 	void Update(const float& dt);
-	void Render(sf::RenderTarget* target = nullptr);
+	void Render(sf::RenderTarget* target);
 };

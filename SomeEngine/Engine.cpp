@@ -50,24 +50,28 @@ void Engine::UpdateDt()
 /*Functions*/
 void Engine::updateSFMLEvents()
 {
-	while (this->window->pollEvent(sfEvent)) { if (sfEvent.type == sf::Event::Closed) { this->window->close(); } }
+	while (this->window->pollEvent(sfEvent)) 
+	{
+		if (sfEvent.type == sf::Event::Closed)
+		{
+			this->window->close();
+		}
+	}
 }
 void Engine::Update()
 {
 	this->updateSFMLEvents();
 	if (!this->states.empty())
-	{
-		this->states.top().Update(this->dt);
-	}
+		this->states.top()->Update(this->dt);
 }
 void Engine::Render()
 {
 	this->window->clear(sf::Color::Black);
 	/*Render this here*/
+
 	if (!this->states.empty())
-	{
-		this->states.top().Render(this->window);
-	}
+		this->states.top()->Render(window);
+
 
 	/*Render this here*/
 	this->window->display();
