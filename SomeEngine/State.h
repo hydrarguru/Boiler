@@ -5,6 +5,8 @@
 #include <sstream>
 #include <ctime>
 #include <cstdlib>
+#include <stack>
+#include <map>
 
 //SFML
 #include "SFML/System.hpp"
@@ -15,11 +17,14 @@
 class State
 {
 private:
+	sf::RenderWindow* window;
 	std::vector<sf::Texture> textures;
 public:
-	State();
+	State(sf::RenderWindow* window);
 	~State();
 
-	virtual void Update() = 0;
-	virtual void Render() = 0;
+	virtual void endState() = 0;
+
+	virtual void Update(const float& dt) = 0;
+	virtual void Render(sf::RenderTarget* target = nullptr) = 0;
 };

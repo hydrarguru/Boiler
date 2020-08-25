@@ -1,5 +1,5 @@
 #pragma once
-#include "State.h"
+#include "GameState.h"
 
 class Engine
 {
@@ -12,8 +12,11 @@ private:
 	sf::Clock dtClock;
 	float dt;
 
+	std::stack<State*> states;
+
 	/*Init*/
 	void initWindow();
+	void initState();
 
 public:
 	//Constructor - Destructor

@@ -4,12 +4,10 @@ void Engine::initWindow()
 {
 	loadFont();
 	std::ifstream ifs("window.ini");
-
 	std::string windowTitle = "";
 	sf::VideoMode windowBounds(1280,720);
 	unsigned framerateLimit = 60;
 	bool vsyncEnabled = false;
-
 	if (ifs.is_open())
 	{
 		std::getline(ifs, windowTitle);
@@ -17,20 +15,32 @@ void Engine::initWindow()
 		ifs >> framerateLimit;
 		ifs >> vsyncEnabled;
 	}
-
+	ifs.close();
 
 	this->window = new sf::RenderWindow(windowBounds, windowTitle);
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
 }
 
+void Engine::initState()
+{
+	this->states.push(new GameState(this->window));
+}
+
 Engine::Engine()
 {
 	initWindow();
+	this->initState();
 }
 Engine::~Engine()
 {
 	delete this->window;
+
+	while (!this->states.empty())
+	{
+		delete this->states.top();
+		this->states.pop();
+	}
 }
 void Engine::UpdateDt()
 {
@@ -45,12 +55,19 @@ void Engine::updateSFMLEvents()
 void Engine::Update()
 {
 	this->updateSFMLEvents();
+	if (!this->states.empty())
+	{
+		this->states.top().Update(this->dt);
+	}
 }
 void Engine::Render()
 {
 	this->window->clear(sf::Color::Black);
 	/*Render this here*/
-
+	if (!this->states.empty())
+	{
+		this->states.top().Render(this->window);
+	}
 
 	/*Render this here*/
 	this->window->display();
@@ -67,8 +84,13 @@ void Engine::Run()
 
 void Engine::loadFont()
 {
-	if (font.loadFromFile("segoeui.ttf"))
+	std::string segoue = "segoeui.ttf";
+	if (font.loadFromFile(segoue))
 	{
-		std::cout << "Font loaded!" << std::endl;
+		std::cout << "Font loaded: " << segoue << std::endl;
+	}
+	else
+	{
+		std::cout << "Font not loaded!" << std::endl;
 	}
 }
