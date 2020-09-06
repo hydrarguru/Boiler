@@ -42,12 +42,12 @@ Engine::~Engine()
 		this->states.pop();
 	}
 }
+/*Functions*/
 void Engine::UpdateDt()
 {
 	this->dt = this->dtClock.restart().asSeconds();
-	
 }
-/*Functions*/
+
 void Engine::updateSFMLEvents()
 {
 	while (this->window->pollEvent(sfEvent)) 
@@ -58,12 +58,31 @@ void Engine::updateSFMLEvents()
 		}
 	}
 }
+
 void Engine::Update()
 {
 	this->updateSFMLEvents();
 	if (!this->states.empty())
+	{
 		this->states.top()->Update(this->dt);
+
+		if (this->states.top()->getQuit())
+		{
+			this->states.top()->endState();
+			delete this->states.top();
+			this->states.pop();
+		}
+	}
+	//Application quit
+	else
+	{
+		this->window->close();
+	}
+
+
+
 }
+
 void Engine::Render()
 {
 	this->window->clear(sf::Color::Black);
@@ -76,6 +95,7 @@ void Engine::Render()
 	/*Render this here*/
 	this->window->display();
 }
+
 void Engine::Run()
 {
 	while (this->window->isOpen())
