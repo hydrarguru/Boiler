@@ -5,9 +5,10 @@ class Engine
 {
 private:
 	/*Variables*/
-	sf::Font font;
+	sf::Font _font;
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+	sf::Text text;
 
 	sf::Clock dtClock;
 	float dt;
@@ -25,8 +26,8 @@ public:
 
 
 	//Functions
-	void loadFont();
 	void endApp();
+	void loadFont(std::string font);
 
 	//Update
 	void UpdateDt();

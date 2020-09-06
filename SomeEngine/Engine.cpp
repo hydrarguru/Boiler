@@ -2,7 +2,11 @@
 
 void Engine::initWindow()
 {
-	loadFont();
+	loadFont("segoeui.ttf");
+	text.setFont(_font);
+	text.setPosition(sf::Vector2f(640, 0));
+	text.setString("Boiler Engine");
+
 	std::ifstream ifs("window.ini");
 	std::string windowTitle = "";
 	sf::VideoMode windowBounds(1280,720);
@@ -88,8 +92,8 @@ void Engine::Render()
 	if (!this->states.empty())
 		this->states.top()->Render(window);
 
-
 	/*Render this here*/
+	this->window->draw(text);
 	this->window->display();
 }
 
@@ -103,20 +107,19 @@ void Engine::Run()
 	}
 }
 
-void Engine::loadFont()
+void Engine::endApp()
 {
-	std::string segoue = "segoeui.ttf";
-	if (font.loadFromFile(segoue))
+	std::cout << "Boiler Shutdown" << std::endl;
+}
+
+void Engine::loadFont(std::string font)
+{
+	if (_font.loadFromFile(font))
 	{
-		std::cout << "Font loaded: " << segoue << std::endl;
+		std::cout << "Font loaded: " << font << std::endl;
 	}
 	else
 	{
 		std::cout << "Font not loaded!" << std::endl;
 	}
-}
-
-void Engine::endApp()
-{
-	std::cout << "Boiler Shutdown" << std::endl;
 }
