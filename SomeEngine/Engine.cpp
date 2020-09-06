@@ -73,14 +73,11 @@ void Engine::Update()
 			this->states.pop();
 		}
 	}
-	//Application quit
 	else
 	{
+		this->endApp();
 		this->window->close();
 	}
-
-
-
 }
 
 void Engine::Render()
@@ -117,4 +114,9 @@ void Engine::loadFont()
 	{
 		std::cout << "Font not loaded!" << std::endl;
 	}
+}
+
+void Engine::endApp()
+{
+	std::cout << "Boiler Shutdown" << std::endl;
 }

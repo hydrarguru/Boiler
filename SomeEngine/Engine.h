@@ -25,10 +25,17 @@ public:
 
 
 	//Functions
+	void loadFont();
+	void endApp();
+
+	//Update
 	void UpdateDt();
 	void updateSFMLEvents();
 	void Update();
+
+	//Render
 	void Render();
+
+	//Core
 	void Run();
-	void loadFont();
 };

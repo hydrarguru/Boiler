@@ -23,10 +23,11 @@ void GameState::updateKeybinds(const float& dt)
 void GameState::Update(const float& dt)
 {
 	this->updateKeybinds(dt);
-	std::cout << "Hello from GameState" << std::endl;
+	this->Player.Update(dt);
+	
 }
 
 void GameState::Render(sf::RenderTarget* target)
 {
-
+	this->Player.Render(this->window);
 }
