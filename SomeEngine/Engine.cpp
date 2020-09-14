@@ -2,11 +2,6 @@
 
 void Engine::initWindow()
 {
-	loadFont("segoeui.ttf");
-	text.setFont(_font);
-	text.setPosition(sf::Vector2f(640, 0));
-	text.setString("Boiler Engine");
-
 	std::ifstream ifs("window.ini");
 	std::string windowTitle = "";
 	sf::VideoMode windowBounds(1280,720);
@@ -25,7 +20,6 @@ void Engine::initWindow()
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
 }
-
 
 void Engine::initKeys()
 {
@@ -49,7 +43,7 @@ void Engine::initKeys()
 
 void Engine::initState()
 {
-	this->states.push(new GameState(this->window, &this->supportedKeys));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys));
 }
 
 Engine::Engine()
@@ -58,6 +52,7 @@ Engine::Engine()
 	this->initKeys();
 	this->initState();
 }
+
 Engine::~Engine()
 {
 	delete this->window;
@@ -116,7 +111,6 @@ void Engine::Render()
 		this->states.top()->Render(window);
 
 	/*Render this here*/
-	this->window->draw(text);
 	this->window->display();
 }
 
@@ -133,16 +127,4 @@ void Engine::Run()
 void Engine::endApp()
 {
 	std::cout << "Boiler Shutdown" << std::endl;
-}
-
-void Engine::loadFont(std::string font)
-{
-	if (_font.loadFromFile(font))
-	{
-		std::cout << "Font loaded: " << font << std::endl;
-	}
-	else
-	{
-		std::cout << "Font not loaded!" << std::endl;
-	}
 }
