@@ -13,6 +13,20 @@ GameState::~GameState()
 
 void GameState::initKeybinds()
 {
+	std::ifstream ifs("gamestate_keybinds.ini");
+	if (ifs.is_open())
+	{
+		std::string key = "";
+		std::string key2 = "";
+		while (ifs >> key >> key2)
+		{
+			this->keybinds[key] = this->supportedKeys->at(key2);
+		}
+	}
+	ifs.close();
+
+
+	this->keybinds["QUIT"] = this->supportedKeys->at("Escape");
 	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
 	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
 	this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
