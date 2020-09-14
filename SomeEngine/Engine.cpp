@@ -29,13 +29,16 @@ void Engine::initWindow()
 
 void Engine::initKeys()
 {
-	this->supportedKeys.emplace("Escape", sf::Keyboard::Key::Escape);
-	this->supportedKeys.emplace("A", sf::Keyboard::Key::A);
-	this->supportedKeys.emplace("D", sf::Keyboard::Key::D);
-	this->supportedKeys.emplace("W", sf::Keyboard::Key::W);
-	this->supportedKeys.emplace("S", sf::Keyboard::Key::S);
+	this->supportedKeys["Escape"] = sf::Keyboard::Key::Escape;
+	this->supportedKeys["A"] = sf::Keyboard::Key::A;
+	this->supportedKeys["D"] = sf::Keyboard::Key::D;
+	this->supportedKeys["W"] = sf::Keyboard::Key::W;
+	this->supportedKeys["S"] = sf::Keyboard::Key::S;
 
-	std::cout << this->supportedKeys.at("A") << std::endl;
+	for (auto i : this->supportedKeys)
+	{
+		std::cout << i.first << " " << i.second << std::endl;
+	}
 }
 
 void Engine::initState()
