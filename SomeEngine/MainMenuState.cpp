@@ -2,8 +2,8 @@
 
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys) : State(window, supportedKeys)
 {
+	this->initFonts();
 	this->initKeybinds();
-
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::Cyan);
 }
@@ -11,6 +11,14 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 MainMenuState::~MainMenuState()
 {
 
+}
+
+void MainMenuState::initFonts()
+{
+	if (!this->font.loadFromFile("segoeui.ttf"))
+	{
+		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
+	}
 }
 
 void MainMenuState::initKeybinds()
@@ -43,12 +51,15 @@ void MainMenuState::endState()
 void MainMenuState::updateInput(const float& dt)
 {
 	this->checkForQuit();
-
 }
 
 void MainMenuState::Update(const float& dt)
 {
+	this->updateMousePosition();
 	this->updateInput(dt);
+
+	system("cls");
+	std::cout << this->mousePosView.x << " " << this->mousePosView.y << std::endl;
 }
 
 void MainMenuState::Render(sf::RenderTarget* target)
