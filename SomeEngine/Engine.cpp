@@ -43,7 +43,7 @@ void Engine::initKeys()
 
 void Engine::initState()
 {
-	this->states.push(new MainMenuState(this->window, &this->supportedKeys));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 Engine::Engine()
