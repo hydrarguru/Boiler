@@ -14,7 +14,9 @@ Button::Button(float x, float y,
 	this->buttonText.setFont(*this->buttonfont);
 	this->buttonText.setString(text);
 	this->buttonText.setFillColor(sf::Color::White);
-	this->buttonText.setCharacterSize(16);
+	this->buttonText.setOutlineColor(sf::Color::Black);
+	this->buttonText.setOutlineThickness(1.f);
+	this->buttonText.setCharacterSize(24);
 	this->buttonText.setPosition(
 		this->buttonShape.getPosition().x + (this->buttonShape.getGlobalBounds().width / 2.f) - this->buttonText.getGlobalBounds().width / 2.f,
 		this->buttonShape.getPosition().y + (this->buttonShape.getGlobalBounds().height / 2.f) - this->buttonText.getGlobalBounds().height / 2.f

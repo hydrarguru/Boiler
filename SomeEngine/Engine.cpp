@@ -3,22 +3,44 @@
 void Engine::initWindow()
 {
 	std::ifstream ifs("window.ini");
+	this->videoModes = sf::VideoMode::getFullscreenModes();
+
 	std::string windowTitle = "";
-	sf::VideoMode windowBounds(1280,720);
+	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
+	bool fullscreen = false;
+
 	unsigned framerateLimit = 60;
 	bool vsyncEnabled = false;
+	unsigned antialiasing_level = 0;
+
 	if (ifs.is_open())
 	{
 		std::getline(ifs, windowTitle);
 		ifs >> windowBounds.width >> windowBounds.height;
+		ifs >> fullscreen;
 		ifs >> framerateLimit;
 		ifs >> vsyncEnabled;
+		ifs >> antialiasing_level;
 	}
 	ifs.close();
 
-	this->window = new sf::RenderWindow(windowBounds, windowTitle);
+	this->fullscreen = fullscreen;
+	this->windowSettings.antialiasingLevel = antialiasing_level;
+
+	if (this->fullscreen)
+		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::Fullscreen, this->windowSettings);
+	else
+		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
+	
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
+}
+
+void Engine::initVars()
+{
+	this->window = nullptr;
+	this->fullscreen = false;
+	this->dt = 0;
 }
 
 void Engine::initKeys()
@@ -109,7 +131,6 @@ void Engine::Render()
 
 	if (!this->states.empty())
 		this->states.top()->Render(window);
-
 	/*Render this here*/
 	this->window->display();
 }

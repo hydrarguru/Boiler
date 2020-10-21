@@ -40,8 +40,6 @@ void MainMenuState::initKeybinds()
 		}
 	}
 	ifs.close();
-
-
 	this->keybinds["QUIT"] = this->supportedKeys->at("Escape");
 	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
 	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
@@ -51,11 +49,11 @@ void MainMenuState::initKeybinds()
 
 void MainMenuState::initButtons()
 {
-	this->buttons["GAME_STATE"] = new Button(100, 100, 200, 75,
+	this->buttons["GAME_STATE"] = new Button(10, 10, 200, 75,
 		&this->font, "New Game",
 		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
 
-	this->buttons["EXIT_STATE"] = new Button(100, 300, 200, 75,
+	this->buttons["EXIT_STATE"] = new Button(10, 80, 200, 75,
 		&this->font, "QUIT",
 		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
 }
