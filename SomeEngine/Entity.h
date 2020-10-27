@@ -25,14 +25,14 @@ class Entity
 private:
 
 protected:
-	sf::CircleShape shape;
-	sf::Text playerText;
-	sf::Font font;
-
-	float movementSpeed;
+	
 public:
 	Entity();
 	virtual ~Entity();
+	/*Variables*/
+	sf::CircleShape shape;
+	sf::Color playerColor;
+	float movementSpeed;
 
 	/*Functions*/
 	virtual void Move(const float& dt, const float x, const float y);

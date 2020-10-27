@@ -1,9 +1,11 @@
 #include "GameState.h"
+#include "MainMenuState.h"
 
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
 {
 	this->initKeybinds();
+	this->initImGui();
 }
 
 GameState::~GameState()
@@ -33,6 +35,32 @@ void GameState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
 }
 
+void GameState::RenderImGui(sf::RenderTarget* target)
+{
+	ImGui::Begin("Game State Menu - Using ImGui");
+	if (ImGui::ColorEdit3("Player Color", color)) 
+	{
+		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
+		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
+		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
+		Player.shape.setFillColor(bgColor);
+	}
+	ImGui::Text("Player Speed: %.f", Player.movementSpeed);
+	ImGui::InputFloat("Set Player Speed", &Player.movementSpeed, 50.f);
+	if (ImGui::Button("Go back to Main Menu"))
+	{
+		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));
+	}
+	ImGui::End();
+	ImGui::SFML::Render(*target);
+}
+
+void GameState::initImGui()
+{
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
+}
+
 void GameState::endState()
 {
 	std::cout << "Ending GameState" << std::endl;
@@ -41,9 +69,6 @@ void GameState::endState()
 void GameState::updateInput(const float& dt)
 {
 	this->checkForQuit();
-
-	
-
 	//Update Player Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
 		this->Player.Move(dt, -1.f, 0.f);
@@ -60,7 +85,7 @@ void GameState::Update(const float& dt)
 	this->updateMousePosition();
 	this->updateInput(dt);
 	this->Player.Update(dt);
-	
+	ImGui::SFML::Update(*this->window, dtClock.restart());
 }
 
 void GameState::Render(sf::RenderTarget* target)
@@ -68,4 +93,5 @@ void GameState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 	this->Player.Render(target);
+	RenderImGui(target);
 }

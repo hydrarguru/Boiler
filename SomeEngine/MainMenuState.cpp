@@ -109,8 +109,6 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 {
 	ImGui::Begin("Main Menu - Using ImGui");
 	if (ImGui::ColorEdit3("Background color", color)) {
-		// this code gets called if color value changes, so
-		// the background color is upgraded automatically!
 		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
 		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
