@@ -4,17 +4,15 @@ void Engine::initWindow()
 {
 	std::ifstream ifs("window.ini");
 	this->videoModes = sf::VideoMode::getFullscreenModes();
-
-	std::string windowTitle = "";
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
 	bool fullscreen = false;
-
 	unsigned framerateLimit = 60;
 	bool vsyncEnabled = false;
 	unsigned antialiasing_level = 0;
 
 	if (ifs.is_open())
 	{
+		
 		std::getline(ifs, windowTitle);
 		ifs >> windowBounds.width >> windowBounds.height;
 		ifs >> fullscreen;
@@ -34,6 +32,8 @@ void Engine::initWindow()
 	
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
 }
 
 void Engine::initVars()
@@ -96,6 +96,7 @@ void Engine::updateSFMLEvents()
 {
 	while (this->window->pollEvent(sfEvent)) 
 	{
+		ImGui::SFML::ProcessEvent(sfEvent);
 		if (sfEvent.type == sf::Event::Closed)
 		{
 			this->window->close();
@@ -106,6 +107,7 @@ void Engine::updateSFMLEvents()
 void Engine::Update()
 {
 	this->updateSFMLEvents();
+	ImGui::SFML::Update(*this->window, dtClock.restart());
 	if (!this->states.empty())
 	{
 		this->states.top()->Update(this->dt);
@@ -126,12 +128,13 @@ void Engine::Update()
 
 void Engine::Render()
 {
+	ImGui::Begin("Sample Window");
+	ImGui::End();
 	this->window->clear(sf::Color::Black);
-	/*Render this here*/
-
 	if (!this->states.empty())
 		this->states.top()->Render(window);
-	/*Render this here*/
+
+	ImGui::SFML::Render(*this->window);
 	this->window->display();
 }
 
@@ -143,6 +146,7 @@ void Engine::Run()
 		this->Update();
 		this->Render();
 	}
+	ImGui::SFML::Shutdown();
 }
 
 void Engine::endApp()

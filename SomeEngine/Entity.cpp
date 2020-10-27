@@ -2,8 +2,9 @@
 
 Entity::Entity()
 {
-	this->shape.setSize(sf::Vector2f(50.f, 50.f));
-	this->shape.setFillColor(sf::Color::White);
+	this->shape.setPointCount(18);
+	this->shape.setRadius(32.f);
+	this->shape.setFillColor(sf::Color::Red);
 	this->movementSpeed = 100.f;
 }
 
@@ -19,7 +20,6 @@ void Entity::Move(const float& dt, const float dir_x, const float dir_y)
 
 void Entity::Update(const float& dt)
 {
-
 }
 
 void Entity::Render(sf::RenderTarget* target)

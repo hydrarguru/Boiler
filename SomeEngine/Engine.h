@@ -1,5 +1,7 @@
 #pragma once
 #include "MainMenuState.h"
+#include <ImGui/imgui.h>
+#include <ImGuiSFML/imgui-SFML.h>
 
 class Engine
 {
@@ -7,6 +9,8 @@ private:
 	/*Variables*/
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+
+	std::string windowTitle;
 
 	std::vector<sf::VideoMode> videoModes;
 	sf::ContextSettings windowSettings;

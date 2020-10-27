@@ -21,17 +21,17 @@ class Entity
 private:
 
 protected:
-	sf::RectangleShape shape;
-	float movementSpeed;
+	sf::CircleShape shape;
+	sf::Text playerText;
+	sf::Font font;
 
+	float movementSpeed;
 public:
 	Entity();
 	virtual ~Entity();
 
 	/*Functions*/
 	virtual void Move(const float& dt, const float x, const float y);
-
 	virtual void Update(const float& dt);
 	virtual void Render(sf::RenderTarget* target);
-
 };
