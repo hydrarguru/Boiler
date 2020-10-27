@@ -25,15 +25,20 @@ class Entity
 private:
 
 protected:
-	
+	float movementSpeed;
 public:
 	Entity();
 	virtual ~Entity();
 	/*Variables*/
 	sf::CircleShape shape;
-	sf::Color playerColor;
-	float movementSpeed;
 
+	/*Getters/Setters*/
+	void setMovementSpeed(float speed) {
+		movementSpeed = speed;
+	}
+	float getMovementSpeed() {
+		return movementSpeed;
+	}
 	/*Functions*/
 	virtual void Move(const float& dt, const float x, const float y);
 	virtual void Update(const float& dt);

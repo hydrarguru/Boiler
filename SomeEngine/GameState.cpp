@@ -45,8 +45,12 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
 		Player.shape.setFillColor(bgColor);
 	}
-	ImGui::Text("Player Speed: %.f", Player.movementSpeed);
-	ImGui::InputFloat("Set Player Speed", &Player.movementSpeed, 50.f);
+	ImGui::Text("Player Speed: %.f", Player.getMovementSpeed());
+	ImGui::InputFloat("Change Player Speed", &movementSpeed, 50.f);
+	if (ImGui::Button("Set player speed"))
+	{
+		Player.setMovementSpeed(movementSpeed);
+	}
 	if (ImGui::Button("Go back to Main Menu"))
 	{
 		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));

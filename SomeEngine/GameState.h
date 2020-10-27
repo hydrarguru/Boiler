@@ -10,6 +10,7 @@ private:
 	sf::Clock dtClock;
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
+	float movementSpeed;
 
 	//Functions
 	void initKeybinds();
