@@ -15,6 +15,10 @@
 #include "SFML/Audio.hpp"
 #include "SFML/Network.hpp"
 
+//ImGui
+#include <ImGui/imgui.h>
+#include <ImGuiSFML/imgui-SFML.h>
+
 
 class Entity
 {

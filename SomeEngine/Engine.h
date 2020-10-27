@@ -1,7 +1,5 @@
 #pragma once
 #include "MainMenuState.h"
-#include <ImGui/imgui.h>
-#include <ImGuiSFML/imgui-SFML.h>
 
 class Engine
 {

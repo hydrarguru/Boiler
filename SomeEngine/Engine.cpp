@@ -32,8 +32,8 @@ void Engine::initWindow()
 	
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
-	ImGui::SFML::Init(*this->window);
-	this->window->resetGLStates();
+	//ImGui::SFML::Init(*this->window);
+	//this->window->resetGLStates();
 }
 
 void Engine::initVars()
@@ -107,7 +107,7 @@ void Engine::updateSFMLEvents()
 void Engine::Update()
 {
 	this->updateSFMLEvents();
-	ImGui::SFML::Update(*this->window, dtClock.restart());
+	//ImGui::SFML::Update(*this->window, dtClock.restart());
 	if (!this->states.empty())
 	{
 		this->states.top()->Update(this->dt);
@@ -128,13 +128,11 @@ void Engine::Update()
 
 void Engine::Render()
 {
-	ImGui::Begin("Sample Window");
-	ImGui::End();
 	this->window->clear(sf::Color::Black);
 	if (!this->states.empty())
 		this->states.top()->Render(window);
 
-	ImGui::SFML::Render(*this->window);
+	//ImGui::SFML::Render(*this->window);
 	this->window->display();
 }
 
@@ -146,7 +144,7 @@ void Engine::Run()
 		this->Update();
 		this->Render();
 	}
-	ImGui::SFML::Shutdown();
+	//ImGui::SFML::Shutdown();
 }
 
 void Engine::endApp()
