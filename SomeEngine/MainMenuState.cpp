@@ -8,6 +8,9 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::Black);
+
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
 }
 
 MainMenuState::~MainMenuState()
@@ -99,7 +102,32 @@ void MainMenuState::Update(const float& dt)
 	this->updateMousePosition();
 	this->updateInput(dt);
 	this->updateButtons();
+	ImGui::SFML::Update(*this->window, dtClock.restart());
 }
+
+void MainMenuState::RenderImGUI(sf::RenderTarget* target)
+{
+	ImGui::Begin("Main Menu - Using ImGui");
+	if (ImGui::ColorEdit3("Background color", color)) {
+		// this code gets called if color value changes, so
+		// the background color is upgraded automatically!
+		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
+		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
+		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
+		background.setFillColor(bgColor);
+	}
+	if (ImGui::Button("Start Game"))
+	{
+		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
+	}
+	if (ImGui::Button("Quit"))
+	{
+		this->quit = true;
+	}
+	ImGui::End();
+	ImGui::SFML::Render(*target);
+}
+
 
 void MainMenuState::Render(sf::RenderTarget* target)
 {
@@ -107,5 +135,6 @@ void MainMenuState::Render(sf::RenderTarget* target)
 		target = this->window;
 	target->draw(this->background);
 	this->renderButtons(target);
+	RenderImGUI(target);
 }
 

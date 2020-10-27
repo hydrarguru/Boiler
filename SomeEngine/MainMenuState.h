@@ -11,6 +11,10 @@ private:
 	sf::Font font;
 
 	std::map<std::string, Button*> buttons;
+	sf::Clock dtClock;
+
+	sf::Color bgColor;
+	float color[3] = { 0.f, 0.f, 0.f };
 
 	//Functions
 	void initFonts();
@@ -31,7 +35,7 @@ public:
 	void updateButtons();
 
 	void Update(const float& dt);
-
+	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);
 	/*
 	Handles all rendering for the buttons.
