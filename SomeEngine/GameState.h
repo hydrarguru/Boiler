@@ -15,6 +15,7 @@ private:
 	//Functions
 	void initKeybinds();
 	void initImGui();
+	void initVars();
 public:
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~GameState();
