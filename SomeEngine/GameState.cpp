@@ -4,6 +4,7 @@
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
 {
+	this->initVars();
 	this->initKeybinds();
 	this->initImGui();
 }
@@ -11,6 +12,14 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 GameState::~GameState()
 {
 
+}
+
+void GameState::initVars()
+{
+	movementSpeed = Player.getMovementSpeed();
+	color[0] = Player.getPlayerShape().getFillColor().r;
+	color[1] = Player.getPlayerShape().getFillColor().g;
+	color[2] = Player.getPlayerShape().getFillColor().b;
 }
 
 void GameState::initKeybinds()
@@ -43,7 +52,7 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
 		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
-		Player.shape.setFillColor(bgColor);
+		Player.setPlayerShapeColor(bgColor);
 	}
 	ImGui::Text("Player Speed: %.f", Player.getMovementSpeed());
 	ImGui::InputFloat("Change Player Speed", &movementSpeed, 50.f);
@@ -51,7 +60,8 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	{
 		Player.setMovementSpeed(movementSpeed);
 	}
-	if (ImGui::Button("Go back to Main Menu"))
+
+	if (ImGui::Button("Go back to menu"))
 	{
 		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));
 	}
@@ -63,6 +73,9 @@ void GameState::initImGui()
 {
 	ImGui::SFML::Init(*this->window);
 	this->window->resetGLStates();
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+	ImGui::SetCurrentContext(ctx);
+	ImGui::StyleColorsDark();
 }
 
 void GameState::endState()

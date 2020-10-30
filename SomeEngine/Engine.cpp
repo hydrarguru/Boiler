@@ -26,14 +26,23 @@ void Engine::initWindow()
 	this->windowSettings.antialiasingLevel = antialiasing_level;
 
 	if (this->fullscreen)
-		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::Fullscreen, this->windowSettings);
+		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::None, this->windowSettings);
 	else
 		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
 	
 	this->window->setFramerateLimit(framerateLimit);
 	this->window->setVerticalSyncEnabled(vsyncEnabled);
-	//ImGui::SFML::Init(*this->window);
-	//this->window->resetGLStates();
+}
+
+void Engine::initImGui()
+{
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
+	ImGui::StyleColorsLight();
+	ImGuiIO IO = ImGui::GetIO();
+	IO.Fonts->Clear();
+	IO.Fonts->AddFontFromFileTTF("segoeui.ttf", 24.f);
+	ImGui::SFML::UpdateFontTexture();
 }
 
 void Engine::initVars()
@@ -71,6 +80,7 @@ void Engine::initState()
 Engine::Engine()
 {
 	this->initWindow();
+	this->initImGui();
 	this->initKeys();
 	this->initState();
 }
@@ -107,7 +117,6 @@ void Engine::updateSFMLEvents()
 void Engine::Update()
 {
 	this->updateSFMLEvents();
-	//ImGui::SFML::Update(*this->window, dtClock.restart());
 	if (!this->states.empty())
 	{
 		this->states.top()->Update(this->dt);
@@ -131,8 +140,6 @@ void Engine::Render()
 	this->window->clear(sf::Color::Black);
 	if (!this->states.empty())
 		this->states.top()->Render(window);
-
-	//ImGui::SFML::Render(*this->window);
 	this->window->display();
 }
 
@@ -144,7 +151,6 @@ void Engine::Run()
 		this->Update();
 		this->Render();
 	}
-	//ImGui::SFML::Shutdown();
 }
 
 void Engine::endApp()

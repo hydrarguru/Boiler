@@ -152,6 +152,7 @@
     <ClCompile Include="GameState.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="boiler.h" />
     <ClInclude Include="Button.h" />
     <ClInclude Include="Engine.h" />
     <ClInclude Include="Entity.h" />

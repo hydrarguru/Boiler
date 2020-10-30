@@ -13,10 +13,14 @@ private:
 	std::map<std::string, Button*> buttons;
 	sf::Clock dtClock;
 
+	bool demoWindow = true;
+
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
 
 	//Functions
+	void initImGui();
+	void initVars();
 	void initFonts();
 	void initKeybinds();
 	void initButtons();

@@ -23,6 +23,7 @@ private:
 
 
 	/*Init*/
+	void initImGui();
 	void initVars();
 	void initWindow();
 	void initKeys();

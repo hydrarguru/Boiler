@@ -1,16 +1,15 @@
-#include "MainMenuState.h"
+﻿#include "MainMenuState.h"
 
-MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
+MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+	: State(window, supportedKeys, states)
 {
+	this->initImGui();
+	this->initVars();
 	this->initFonts();
 	this->initKeybinds();
 	this->initButtons();
 
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color::Black);
 
-	ImGui::SFML::Init(*this->window);
-	this->window->resetGLStates();
 }
 
 MainMenuState::~MainMenuState()
@@ -20,6 +19,24 @@ MainMenuState::~MainMenuState()
 	{
 		delete it->second;
 	}
+}
+
+void MainMenuState::initImGui()
+{
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+	ImGui::SetCurrentContext(ctx);
+	ImGui::StyleColorsLight();
+}
+
+void MainMenuState::initVars()
+{
+	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	this->background.setFillColor(sf::Color::White);
+	color[0] = background.getFillColor().r;
+	color[1] = background.getFillColor().g;
+	color[2] = background.getFillColor().b;
 }
 
 void MainMenuState::initFonts()
@@ -56,7 +73,7 @@ void MainMenuState::initButtons()
 		&this->font, "New Game",
 		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
 
-	this->buttons["EXIT_STATE"] = new Button(10, 80, 200, 75,
+	this->buttons["EXIT_STATE"] = new Button(10, 90, 200, 75,
 		&this->font, "QUIT",
 		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
 }
@@ -99,10 +116,10 @@ void MainMenuState::renderButtons(sf::RenderTarget* target)
 
 void MainMenuState::Update(const float& dt)
 {
+	ImGui::SFML::Update(*this->window, dtClock.restart());
 	this->updateMousePosition();
 	this->updateInput(dt);
 	this->updateButtons();
-	ImGui::SFML::Update(*this->window, dtClock.restart());
 }
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
@@ -126,7 +143,6 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 	ImGui::SFML::Render(*target);
 }
 
-
 void MainMenuState::Render(sf::RenderTarget* target)
 {
 	if (!target)
@@ -135,4 +151,3 @@ void MainMenuState::Render(sf::RenderTarget* target)
 	this->renderButtons(target);
 	RenderImGUI(target);
 }
-
