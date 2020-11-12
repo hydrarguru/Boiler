@@ -12,7 +12,6 @@ void Engine::initWindow()
 
 	if (ifs.is_open())
 	{
-		
 		std::getline(ifs, windowTitle);
 		ifs >> windowBounds.width >> windowBounds.height;
 		ifs >> fullscreen;
@@ -38,11 +37,12 @@ void Engine::initImGui()
 {
 	ImGui::SFML::Init(*this->window);
 	this->window->resetGLStates();
-	ImGui::StyleColorsLight();
+	/*
 	ImGuiIO IO = ImGui::GetIO();
 	IO.Fonts->Clear();
-	IO.Fonts->AddFontFromFileTTF("segoeui.ttf", 24.f);
+	IO.Fonts->AddFontFromFileTTF("Roboto.ttf", 18.f);
 	ImGui::SFML::UpdateFontTexture();
+	*/
 }
 
 void Engine::initVars()
@@ -151,6 +151,7 @@ void Engine::Run()
 		this->Update();
 		this->Render();
 	}
+	ImGui::SFML::Shutdown();
 }
 
 void Engine::endApp()

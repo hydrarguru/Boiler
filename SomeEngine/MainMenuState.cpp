@@ -5,11 +5,10 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 {
 	this->initImGui();
 	this->initVars();
+	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
 	this->initButtons();
-
-
 }
 
 MainMenuState::~MainMenuState()
@@ -27,21 +26,34 @@ void MainMenuState::initImGui()
 	this->window->resetGLStates();
 	ImGuiContext* ctx = ImGui::GetCurrentContext();
 	ImGui::SetCurrentContext(ctx);
-	ImGui::StyleColorsLight();
+}
+
+void MainMenuState::initBackground()
+{
+	this->background.setSize(sf::Vector2f
+	(
+		static_cast<float>(this->window->getSize().x),
+		static_cast<float>(this->window->getSize().y))
+	);
+	if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
+		throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
+	this->background.setTexture(&backgroundTexture);
 }
 
 void MainMenuState::initVars()
 {
+	/*stuff not used atm
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::White);
 	color[0] = background.getFillColor().r;
 	color[1] = background.getFillColor().g;
 	color[2] = background.getFillColor().b;
+	*/
 }
 
 void MainMenuState::initFonts()
 {
-	if (!this->font.loadFromFile("segoeui.ttf"))
+	if (!this->font.loadFromFile("Roboto.ttf"))
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}
@@ -71,11 +83,15 @@ void MainMenuState::initButtons()
 {
 	this->buttons["GAME_STATE"] = new Button(10, 10, 200, 75,
 		&this->font, "New Game",
-		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["EXIT_STATE"] = new Button(10, 90, 200, 75,
+	this->buttons["SETTINGS_STATE"] = new Button(10, 90, 200, 75,
+		&this->font, "Settings",
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+
+	this->buttons["EXIT_STATE"] = new Button(10, 170, 200, 75,
 		&this->font, "QUIT",
-		sf::Color::Green, sf::Color::Magenta, sf::Color::Cyan);
+		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
 void MainMenuState::endState()
@@ -129,7 +145,7 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
 		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
-		background.setFillColor(bgColor);
+		//background.setFillColor(bgColor);
 	}
 	if (ImGui::Button("Start Game"))
 	{
@@ -140,6 +156,8 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		this->quit = true;
 	}
 	ImGui::End();
+
+
 	ImGui::SFML::Render(*target);
 }
 
@@ -149,5 +167,17 @@ void MainMenuState::Render(sf::RenderTarget* target)
 		target = this->window;
 	target->draw(this->background);
 	this->renderButtons(target);
-	RenderImGUI(target);
+	this->RenderImGUI(target);
+
+	if (SHOW_MOUSE_POS_DEBUG)
+	{
+		sf::Text mouseText;
+		mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
+		mouseText.setFont(this->font);
+		mouseText.setCharacterSize(18);
+		std::stringstream ss;
+		ss << "X: " << this->mousePosView.x << " | " << "Y: " << this->mousePosView.y;
+		mouseText.setString(ss.str());
+		target->draw(mouseText);
+	}
 }

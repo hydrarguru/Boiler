@@ -1,6 +1,7 @@
 #include "Button.h"
 
-Button::Button(float x, float y,
+Button::Button(
+	float x, float y,
 	float width, float height,
 	sf::Font* font, std::string text,
 	sf::Color idleColor, sf::Color hoverColor, sf::Color activeColor)
@@ -25,7 +26,6 @@ Button::Button(float x, float y,
 	this->idleColor = idleColor;
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
-
 	this->buttonShape.setFillColor(this->idleColor);
 }
 
@@ -41,8 +41,6 @@ const bool Button::isPressed() const
 
 	return false;
 }
-
-
 
 void Button::Update(const sf::Vector2f mousePos)
 {

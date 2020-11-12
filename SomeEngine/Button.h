@@ -26,7 +26,8 @@ private:
 	sf::Color activeColor;
 
 public:
-	Button(float x,
+	Button(
+		float x,
 		float y,
 		float width,
 		float height,

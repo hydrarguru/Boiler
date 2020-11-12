@@ -1,7 +1,6 @@
 #include "GameState.h"
 #include "MainMenuState.h"
 
-
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
 {
 	this->initVars();
@@ -44,6 +43,14 @@ void GameState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
 }
 
+void GameState::initImGui()
+{
+	ImGui::SFML::Init(*this->window);
+	this->window->resetGLStates();
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+	ImGui::SetCurrentContext(ctx);
+}
+
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
 	ImGui::Begin("Game State Menu - Using ImGui");
@@ -67,15 +74,6 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	}
 	ImGui::End();
 	ImGui::SFML::Render(*target);
-}
-
-void GameState::initImGui()
-{
-	ImGui::SFML::Init(*this->window);
-	this->window->resetGLStates();
-	ImGuiContext* ctx = ImGui::GetCurrentContext();
-	ImGui::SetCurrentContext(ctx);
-	ImGui::StyleColorsDark();
 }
 
 void GameState::endState()
