@@ -26,6 +26,7 @@ private:
 
 
 	/*Init*/
+	bool initConfig();
 	void initImGui();
 	void initVars();
 	void initWindow();

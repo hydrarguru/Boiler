@@ -1,10 +1,41 @@
 #include "Engine.h"
 
-void Engine::initWindow()
+bool Engine::initConfig()
 {
 	mINI::INIFile file("config/engine.ini");
 	mINI::INIStructure ini;
+	if (!file.read(ini))
+	{
+		std::cout << "Could not load config." << std::endl;
+		std::cout << "Generating new config." << std::endl;
+
+		mINI::INIFile config("engine.ini");
+		mINI::INIStructure ini;
+		ini["ENGINE"]["window_name"] = "generatedconfigtest";
+		ini["ENGINE"]["window_height"] = "1080";
+		ini["ENGINE"]["window_width"] = "1920";
+		ini["DISPLAY"]["vsync"] = "1";
+		ini["DISPLAY"]["fullscreen"] = "1";
+		ini["DISPLAY"]["framerate"] = "144";
+		ini["DISPLAY"]["antialiasing"] = "0";
+		if (file.generate(ini, true))
+		{
+			return true;
+		}
+		else
+			return false;
+	}
+}
+
+void Engine::initWindow()
+{
+	this->videoModes = sf::VideoMode::getFullscreenModes();
+	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
+
+	mINI::INIFile file("config/engine.ini");
+	mINI::INIStructure ini;
 	file.read(ini);
+
 
 	/*ENGINE*/
 	windowTitle = ini["ENGINE"]["window_name"];
@@ -17,8 +48,6 @@ void Engine::initWindow()
 	framerate = std::stoi(ini["DISPLAY"]["framerate"]);
 	antialiasing = std::stoi(ini["DISPLAY"]["antialiasing"]);
 
-	this->videoModes = sf::VideoMode::getFullscreenModes();
-	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
 	windowBounds.height = window_height;
 	windowBounds.width = window_width;
 	this->windowSettings.antialiasingLevel = antialiasing;
@@ -78,10 +107,13 @@ void Engine::initState()
 
 Engine::Engine()
 {
-	this->initWindow();
-	this->initImGui();
-	this->initKeys();
-	this->initState();
+	if (this->initConfig())
+	{
+		this->initWindow();
+		this->initImGui();
+		this->initKeys();
+		this->initState();
+	}
 }
 
 Engine::~Engine()

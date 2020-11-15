@@ -5,7 +5,6 @@
 class Entity
 {
 private:
-
 protected:
 	float movementSpeed;
 	sf::CircleShape shape;
