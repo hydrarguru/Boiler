@@ -2,35 +2,34 @@
 
 void Engine::initWindow()
 {
-	std::ifstream ifs("window.ini");
+	mINI::INIFile file("config/engine.ini");
+	mINI::INIStructure ini;
+	file.read(ini);
+
+	/*ENGINE*/
+	windowTitle = ini["ENGINE"]["window_name"];
+	window_height = std::stoi(ini["ENGINE"]["window_height"]);
+	window_width = std::stoi(ini["ENGINE"]["window_width"]);
+
+	/*DISPLAY*/
+	vsync = std::stoi(ini["DISPLAY"]["vsync"]);
+	fullscreen = std::stoi(ini["DISPLAY"]["fullscreen"]);
+	framerate = std::stoi(ini["DISPLAY"]["framerate"]);
+	antialiasing = std::stoi(ini["DISPLAY"]["antialiasing"]);
+
 	this->videoModes = sf::VideoMode::getFullscreenModes();
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
-	bool fullscreen = false;
-	unsigned framerateLimit = 60;
-	bool vsyncEnabled = false;
-	unsigned antialiasing_level = 0;
-
-	if (ifs.is_open())
-	{
-		std::getline(ifs, windowTitle);
-		ifs >> windowBounds.width >> windowBounds.height;
-		ifs >> fullscreen;
-		ifs >> framerateLimit;
-		ifs >> vsyncEnabled;
-		ifs >> antialiasing_level;
-	}
-	ifs.close();
-
-	this->fullscreen = fullscreen;
-	this->windowSettings.antialiasingLevel = antialiasing_level;
+	windowBounds.height = window_height;
+	windowBounds.width = window_width;
+	this->windowSettings.antialiasingLevel = antialiasing;
 
 	if (this->fullscreen)
 		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::None, this->windowSettings);
 	else
 		this->window = new sf::RenderWindow(windowBounds, windowTitle, sf::Style::Titlebar | sf::Style::Close, this->windowSettings);
-	
-	this->window->setFramerateLimit(framerateLimit);
-	this->window->setVerticalSyncEnabled(vsyncEnabled);
+
+	this->window->setFramerateLimit(framerate);
+	this->window->setVerticalSyncEnabled(vsync);
 }
 
 void Engine::initImGui()

@@ -147,17 +147,7 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
 		//background.setFillColor(bgColor);
 	}
-	if (ImGui::Button("Start Game"))
-	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
-	}
-	if (ImGui::Button("Quit"))
-	{
-		this->quit = true;
-	}
 	ImGui::End();
-
-
 	ImGui::SFML::Render(*target);
 }
 

@@ -18,3 +18,6 @@
 //ImGui
 #include <ImGui/imgui.h>
 #include <ImGuiSFML/imgui-SFML.h>
+
+//mINI
+#include "mini/ini.h"
