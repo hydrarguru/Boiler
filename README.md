@@ -1,5 +1,5 @@
 # Boiler
-Boiler is a an ongoing project where I learn and further my knowledge using C++.
+Boiler is a an ongoing project where I learn and further my knowledge of C++.
 
 # Libraries used in this project:
 * [SFML](https://www.sfml-dev.org/)
