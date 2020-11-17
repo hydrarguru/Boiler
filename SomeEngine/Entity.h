@@ -5,28 +5,22 @@
 class Entity
 {
 private:
+	void initVars();
+
 protected:
+	sf::Texture* texture;
+	sf::Sprite* sprite;
+
 	float movementSpeed;
-	sf::CircleShape shape;
 public:
 	Entity();
 	virtual ~Entity();
 
-	/*Getters/Setters*/
-	void setMovementSpeed(float speed) {
-		movementSpeed = speed;
-	}
-	float getMovementSpeed() {
-		return movementSpeed;
-	}
-	sf::CircleShape getPlayerShape(){
-		return shape;
-	}
-	void setPlayerShapeColor(sf::Color color) {
-		shape.setFillColor(color);
-	}
+	/*Component Functions*/
+	void CreateSprite(sf::Texture* texture);
 
 	/*Functions*/
+	virtual void SetPosition(const float x, const float y);
 	virtual void Move(const float& dt, const float x, const float y);
 	virtual void Update(const float& dt);
 	virtual void Render(sf::RenderTarget* target);

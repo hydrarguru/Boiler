@@ -5,20 +5,18 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 {
 	this->initVars();
 	this->initKeybinds();
+	this->initTextures();
+	this->initPlayers();
 	this->initImGui();
 }
 
 GameState::~GameState()
 {
-
+	delete this->player;
 }
 
 void GameState::initVars()
 {
-	movementSpeed = Player.getMovementSpeed();
-	color[0] = Player.getPlayerShape().getFillColor().r;
-	color[1] = Player.getPlayerShape().getFillColor().g;
-	color[2] = Player.getPlayerShape().getFillColor().b;
 }
 
 void GameState::initKeybinds()
@@ -43,6 +41,17 @@ void GameState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
 }
 
+void GameState::initTextures()
+{
+	if (this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Skeleton.png"))
+		throw "COULD NOT LOAD PLAYER TEXTURE";
+}
+
+void GameState::initPlayers()
+{
+	this->player = new Player(&this->textures["PLAYER_IDLE"], 10, 10);
+}
+
 void GameState::initImGui()
 {
 	ImGui::SFML::Init(*this->window);
@@ -54,52 +63,35 @@ void GameState::initImGui()
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
 	ImGui::Begin("Game State Menu - Using ImGui");
-	if (ImGui::ColorEdit3("Player Color", color)) 
-	{
-		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
-		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
-		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
-		Player.setPlayerShapeColor(bgColor);
-	}
-	ImGui::Text("Player Speed: %.f", Player.getMovementSpeed());
-	ImGui::InputFloat("Change Player Speed", &movementSpeed, 50.f);
-	if (ImGui::Button("Set player speed"))
-	{
-		Player.setMovementSpeed(movementSpeed);
-	}
-
 	if (ImGui::Button("Go back to menu"))
 	{
-		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));
+		this->quit = true;
 	}
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
 
-void GameState::endState()
-{
-	std::cout << "Ending GameState" << std::endl;
-}
-
 void GameState::updateInput(const float& dt)
 {
-	this->checkForQuit();
 	//Update Player Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
-		this->Player.Move(dt, -1.f, 0.f);
+		this->player->Move(dt, -1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-		this->Player.Move(dt, 1.f, 0.f);
+		this->player->Move(dt, 1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
-		this->Player.Move(dt, 0.f, -1.f);
+		this->player->Move(dt, 0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-		this->Player.Move(dt, 0.f, 1.f);
+		this->player->Move(dt, 0.f, 1.f);
+
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
+		this->endState();
 }
 
 void GameState::Update(const float& dt)
 {
 	this->updateMousePosition();
 	this->updateInput(dt);
-	this->Player.Update(dt);
+	this->player->Update(dt);
 	ImGui::SFML::Update(*this->window, dtClock.restart());
 }
 
@@ -107,6 +99,6 @@ void GameState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
-	this->Player.Render(target);
+	this->player->Render(target);
 	RenderImGui(target);
 }

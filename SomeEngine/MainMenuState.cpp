@@ -94,14 +94,9 @@ void MainMenuState::initButtons()
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 }
 
-void MainMenuState::endState()
-{
-	std::cout << "Ending MainMenuState" << std::endl;
-}
-
 void MainMenuState::updateInput(const float& dt)
 {
-	this->checkForQuit();
+	
 }
 
 void MainMenuState::updateButtons()
@@ -118,7 +113,7 @@ void MainMenuState::updateButtons()
 
 	if (this->buttons["EXIT_STATE"]->isPressed()) //Exit the Application
 	{
-		this->quit = true;
+		this->endState();
 	}
 }
 

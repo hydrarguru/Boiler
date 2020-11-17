@@ -30,13 +30,8 @@ public:
 	virtual ~MainMenuState();
 
 	/*Functions*/
-	void endState();
-
 	void updateInput(const float& dt);
-
-	
 	void updateButtons();/*Handles updating for all the buttons.*/
-
 	void Update(const float& dt);
 	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);

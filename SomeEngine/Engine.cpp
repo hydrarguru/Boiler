@@ -1,17 +1,16 @@
 #include "Engine.h"
 
-bool Engine::initConfig()
+bool Engine::Configure()
 {
 	mINI::INIFile file("config/engine.ini");
 	mINI::INIStructure ini;
 	if (!file.read(ini))
 	{
-		std::cout << "Could not load config." << std::endl;
-		std::cout << "Generating new config." << std::endl;
+		std::cout << "Could not load config. Generating new config." << std::endl;
 
 		mINI::INIFile config("engine.ini");
 		mINI::INIStructure ini;
-		ini["ENGINE"]["window_name"] = "generatedconfigtest";
+		ini["ENGINE"]["window_name"] = "Boiler";
 		ini["ENGINE"]["window_height"] = "1080";
 		ini["ENGINE"]["window_width"] = "1920";
 		ini["DISPLAY"]["vsync"] = "1";
@@ -19,12 +18,12 @@ bool Engine::initConfig()
 		ini["DISPLAY"]["framerate"] = "144";
 		ini["DISPLAY"]["antialiasing"] = "0";
 		if (file.generate(ini, true))
-		{
 			return true;
-		}
 		else
 			return false;
 	}
+	else
+		std::cout << "loaded config" << std::endl;
 }
 
 void Engine::initWindow()
@@ -107,7 +106,7 @@ void Engine::initState()
 
 Engine::Engine()
 {
-	if (this->initConfig())
+	if (this->Configure()) //checks if a config exist, otherwise generate a new one and keep the application run.
 	{
 		this->initWindow();
 		this->initImGui();
