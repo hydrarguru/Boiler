@@ -62,15 +62,11 @@ void MainMenuState::initFonts()
 
 void MainMenuState::initKeybinds()
 {
-	mINI::INIFile file("config/keys.ini");
-	mINI::INIStructure ini;
-	file.read(ini);
-
-	this->keybinds["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
-	this->keybinds["MOVE_LEFT"] = std::stoi(ini["GAME"]["D"]);
-	this->keybinds["MOVE_RIGHT"] = std::stoi(ini["GAME"]["A"]);
-	this->keybinds["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
-	this->keybinds["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
+	this->keybinds["CLOSE"] = this->supportedKeys->at("CLOSE");
+	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("MOVE_LEFT");
+	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("MOVE_RIGHT");
+	this->keybinds["MOVE_UP"] = this->supportedKeys->at("MOVE_UP");
+	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("MOVE_DOWN");
 
 	/*
 	std::ifstream ifs("mainmenustate_keybinds.ini");

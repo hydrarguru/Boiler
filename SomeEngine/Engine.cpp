@@ -81,22 +81,16 @@ void Engine::initVars()
 
 void Engine::initKeys()
 {
-	std::ifstream ifs("supported_keys.ini");
-	if (ifs.is_open())
-	{
-		std::string key = "";
-		int key_value = 0;
-		while (ifs >> key >> key_value)
-		{
-			this->supportedKeys[key] = key_value;
-		}
-	}
-	ifs.close();
+	mINI::INIFile file("config/keys.ini");
+	mINI::INIStructure ini;
+	file.read(ini);
 
-	for (auto i : this->supportedKeys)
-	{
-		std::cout << i.first << " " << i.second << std::endl;
-	}
+	this->supportedKeys["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
+	this->supportedKeys["MOVE_LEFT"] = std::stoi(ini["GAME"]["A"]);
+	this->supportedKeys["MOVE_RIGHT"] = std::stoi(ini["GAME"]["D"]);
+	this->supportedKeys["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
+	this->supportedKeys["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
+	std::cout << "Loaded Keybindings" << std::endl;
 }
 
 void Engine::initState()
