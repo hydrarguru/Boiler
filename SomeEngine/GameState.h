@@ -6,9 +6,8 @@ class GameState : public State
 private:
 	//Variables
 	Player* player;
-
-
 	sf::Clock dtClock;
+
 
 	//Functions
 	void initKeybinds();

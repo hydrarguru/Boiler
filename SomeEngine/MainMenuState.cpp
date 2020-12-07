@@ -4,7 +4,6 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	: State(window, supportedKeys, states)
 {
 	this->initImGui();
-	this->initVars();
 	this->initBackground();
 	this->initFonts();
 	this->initKeybinds();
@@ -26,41 +25,54 @@ void MainMenuState::initImGui()
 	this->window->resetGLStates();
 	ImGuiContext* ctx = ImGui::GetCurrentContext();
 	ImGui::SetCurrentContext(ctx);
+	ImGui::StyleColorsLight();
 }
 
 void MainMenuState::initBackground()
 {
-	this->background.setSize(sf::Vector2f
-	(
-		static_cast<float>(this->window->getSize().x),
-		static_cast<float>(this->window->getSize().y))
-	);
-	if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
-		throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
-	this->background.setTexture(&backgroundTexture);
-}
-
-void MainMenuState::initVars()
-{
-	/*stuff not used atm
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color::White);
-	color[0] = background.getFillColor().r;
-	color[1] = background.getFillColor().g;
-	color[2] = background.getFillColor().b;
-	*/
+	if (showBackground)
+	{
+		this->background.setSize(sf::Vector2f
+		(
+			static_cast<float>(this->window->getSize().x),
+			static_cast<float>(this->window->getSize().y))
+		);
+		if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
+			throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
+		this->background.setTexture(&backgroundTexture);
+	}
+	else
+	{
+		this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+		this->background.setFillColor(sf::Color::White);
+		color[0] = background.getFillColor().r;
+		color[1] = background.getFillColor().g;
+		color[2] = background.getFillColor().b;
+	}
 }
 
 void MainMenuState::initFonts()
 {
-	if (!this->font.loadFromFile("Roboto.ttf"))
+	if (!this->font.loadFromFile("Fonts/Roboto.ttf"))
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}
+	std::cout << "Loaded Fonts" << std::endl;
 }
 
 void MainMenuState::initKeybinds()
 {
+	mINI::INIFile file("config/keys.ini");
+	mINI::INIStructure ini;
+	file.read(ini);
+
+	this->keybinds["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
+	this->keybinds["MOVE_LEFT"] = std::stoi(ini["GAME"]["D"]);
+	this->keybinds["MOVE_RIGHT"] = std::stoi(ini["GAME"]["A"]);
+	this->keybinds["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
+	this->keybinds["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
+
+	/*
 	std::ifstream ifs("mainmenustate_keybinds.ini");
 	if (ifs.is_open())
 	{
@@ -77,6 +89,7 @@ void MainMenuState::initKeybinds()
 	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
 	this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
+	*/
 }
 
 void MainMenuState::initButtons()
@@ -96,7 +109,7 @@ void MainMenuState::initButtons()
 
 void MainMenuState::updateInput(const float& dt)
 {
-	
+
 }
 
 void MainMenuState::updateButtons()
@@ -135,14 +148,39 @@ void MainMenuState::Update(const float& dt)
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 {
-	ImGui::Begin("Main Menu - Using ImGui");
-	if (ImGui::ColorEdit3("Background color", color)) {
+	ImGui::Begin("Main Menu - Using ImGui", &showMenu, ImGuiWindowFlags_MenuBar);
+	if (ImGui::BeginMenuBar())
+	{
+		if (ImGui::BeginMenu("File"))
+		{
+			if (ImGui::MenuItem("Start Game", "Ctrl+O")) { this->states->push(new GameState(this->window, this->supportedKeys, this->states)); }
+			if (ImGui::MenuItem("End App", "Ctrl+S")) { this->endState(); }
+			ImGui::EndMenu();
+		}
+		ImGui::EndMenuBar();
+	}
+	if (ImGui::ColorEdit3("Color", color))
+	{
 		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
 		bgColor.g = static_cast<sf::Uint8>(color[1] * 255.f);
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
-		//background.setFillColor(bgColor);
+		background.setFillColor(bgColor);
+	}
+	if (ImGui::Button("Set Main Menu Texture"))
+	{
+		if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
+			throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
+		this->background.setTexture(&backgroundTexture);
+	}
+	ImGui::SameLine(200);
+	if (ImGui::Button("Unload Texture"))
+	{
+		this->background.setTexture(nullptr);
 	}
 	ImGui::End();
+
+
+
 	ImGui::SFML::Render(*target);
 }
 

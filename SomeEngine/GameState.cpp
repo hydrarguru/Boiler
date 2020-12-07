@@ -21,6 +21,18 @@ void GameState::initVars()
 
 void GameState::initKeybinds()
 {
+	mINI::INIFile file("config/keys.ini");
+	mINI::INIStructure ini;
+	file.read(ini);
+
+	this->keybinds["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
+	this->keybinds["MOVE_LEFT"] = std::stoi(ini["GAME"]["D"]);
+	this->keybinds["MOVE_RIGHT"] = std::stoi(ini["GAME"]["A"]);
+	this->keybinds["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
+	this->keybinds["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
+
+
+	/*
 	std::ifstream ifs("gamestate_keybinds.ini");
 	if (ifs.is_open())
 	{
@@ -33,18 +45,17 @@ void GameState::initKeybinds()
 	}
 	ifs.close();
 
-
 	this->keybinds["QUIT"] = this->supportedKeys->at("Escape");
 	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("A");
 	this->keybinds["MOVE_RIGHT"] = this->supportedKeys->at("D");
 	this->keybinds["MOVE_UP"] = this->supportedKeys->at("W");
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("S");
+	*/
 }
 
 void GameState::initTextures()
 {
-	if (this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Skeleton.png"))
-		throw "COULD NOT LOAD PLAYER TEXTURE";
+	this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Skeleton_Idle.png");
 }
 
 void GameState::initPlayers()
@@ -67,6 +78,8 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	{
 		this->quit = true;
 	}
+	bool show = true;
+	ImGui::ShowDemoWindow(&show);
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }

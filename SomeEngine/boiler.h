@@ -17,6 +17,7 @@
 
 //ImGui
 #include <ImGui/imgui.h>
+#include <ImGui/imgui_internal.h>
 #include <ImGuiSFML/imgui-SFML.h>
 
 //mINI

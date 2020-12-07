@@ -3,7 +3,6 @@
 /*Initializer Functions*/
 void Player::initVars()
 {
-
 }
 
 void Player::initComponents()

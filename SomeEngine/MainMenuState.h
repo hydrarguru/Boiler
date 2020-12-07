@@ -9,19 +9,21 @@ private:
 	sf::Texture backgroundTexture;
 	sf::RectangleShape background;
 	sf::Font font;
+	bool showBackground = false;
 
 	std::map<std::string, Button*> buttons;
 	sf::Clock dtClock;
 
-	bool SHOW_MOUSE_POS_DEBUG = false;
+	bool SHOW_MOUSE_POS_DEBUG = true;
 
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
+	bool showMenu = true;
+
 
 	//Functions
 	void initImGui();
 	void initBackground();
-	void initVars();
 	void initFonts();
 	void initKeybinds();
 	void initButtons();
