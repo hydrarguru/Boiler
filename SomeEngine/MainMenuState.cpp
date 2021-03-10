@@ -105,7 +105,6 @@ void MainMenuState::initButtons()
 
 void MainMenuState::updateInput(const float& dt)
 {
-
 }
 
 void MainMenuState::updateButtons()
@@ -144,7 +143,7 @@ void MainMenuState::Update(const float& dt)
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 {
-	ImGui::Begin("Main Menu - Using ImGui", &showMenu, ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Main Menu State", &showMenu, ImGuiWindowFlags_MenuBar);
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
@@ -154,6 +153,24 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
+	}
+	ImGui::Text("%.f FPS", ImGui::GetIO().Framerate);
+	ImGui::SameLine(200);
+	std::stringstream mousePos;
+	mousePos << "Mouse Position: " << "X: " << this->mousePosView.x << " " << "Y: " << this->mousePosView.y;
+	ImGui::Text(mousePos.str().c_str());
+	static bool check = false;
+	if (ImGui::Checkbox("Show Mouse Position", &check))
+	{
+		SHOW_MOUSE_POS_DEBUG = check;
+		if (check)
+		{
+			SHOW_MOUSE_POS_DEBUG = check;
+		}
+		if (!check)
+		{
+			SHOW_MOUSE_POS_DEBUG = check;
+		}
 	}
 	if (ImGui::ColorEdit3("Color", color))
 	{
@@ -174,9 +191,6 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		this->background.setTexture(nullptr);
 	}
 	ImGui::End();
-
-
-
 	ImGui::SFML::Render(*target);
 }
 
@@ -187,11 +201,12 @@ void MainMenuState::Render(sf::RenderTarget* target)
 	target->draw(this->background);
 	this->renderButtons(target);
 	this->RenderImGUI(target);
-
 	if (SHOW_MOUSE_POS_DEBUG)
 	{
 		sf::Text mouseText;
 		mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
+		mouseText.setOutlineColor(sf::Color::Black);
+		mouseText.setOutlineThickness(1.0f);
 		mouseText.setFont(this->font);
 		mouseText.setCharacterSize(18);
 		std::stringstream ss;

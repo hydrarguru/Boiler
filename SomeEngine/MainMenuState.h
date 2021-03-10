@@ -14,12 +14,11 @@ private:
 	std::map<std::string, Button*> buttons;
 	sf::Clock dtClock;
 
-	bool SHOW_MOUSE_POS_DEBUG = true;
+	bool SHOW_MOUSE_POS_DEBUG = false;
 
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
 	bool showMenu = true;
-
 
 	//Functions
 	void initImGui();
