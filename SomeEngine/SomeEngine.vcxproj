@@ -149,9 +149,9 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="MainMenuState.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="SettingsState.cpp" />
     <ClCompile Include="State.cpp" />
     <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="unused_code.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="boiler.h" />
@@ -160,7 +160,6 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="MainMenuState.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="SettingsState.h" />
     <ClInclude Include="State.h" />
     <ClInclude Include="GameState.h" />
   </ItemGroup>

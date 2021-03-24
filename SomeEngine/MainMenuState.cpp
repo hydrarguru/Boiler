@@ -4,8 +4,8 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 	: State(window, supportedKeys, states)
 {
 	this->initImGui();
-	this->initBackground();
 	this->initFonts();
+	this->initBackground();
 	this->initKeybinds();
 	this->initButtons();
 }
@@ -25,7 +25,6 @@ void MainMenuState::initImGui()
 	this->window->resetGLStates();
 	ImGuiContext* ctx = ImGui::GetCurrentContext();
 	ImGui::SetCurrentContext(ctx);
-	ImGui::StyleColorsLight();
 }
 
 void MainMenuState::initBackground()
@@ -119,6 +118,11 @@ void MainMenuState::updateButtons()
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 	}
 
+	if (this->buttons["SETTINGS_STATE"]->isPressed())
+	{
+		std::cout << "Settings Button" << std::endl;
+	}
+
 	if (this->buttons["EXIT_STATE"]->isPressed()) //Exit the Application
 	{
 		this->endState();
@@ -143,35 +147,27 @@ void MainMenuState::Update(const float& dt)
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 {
-	ImGui::Begin("Main Menu State", &showMenu, ImGuiWindowFlags_MenuBar);
+	std::stringstream mousePos;
+	mousePos << "Mouse Position: " << "X: " << this->mousePosView.x << " " << "Y: " << this->mousePosView.y;
+	#pragma region ImGuiWindow
+	ImGui::ShowDemoWindow(&SHOW_MENU);
+	ImGui::Begin("Main Menu State", &SHOW_MENU, ImGuiWindowFlags_MenuBar);
+	#pragma region MenuBar
 	if (ImGui::BeginMenuBar())
 	{
 		if (ImGui::BeginMenu("File"))
 		{
-			if (ImGui::MenuItem("Start Game", "Ctrl+O")) { this->states->push(new GameState(this->window, this->supportedKeys, this->states)); }
-			if (ImGui::MenuItem("End App", "Ctrl+S")) { this->endState(); }
+			if (ImGui::MenuItem("Start Game")) { this->states->push(new GameState(this->window, this->supportedKeys, this->states)); }
+			if (ImGui::MenuItem("End App")) { this->endState(); }
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
 	}
-	ImGui::Text("%.f FPS", ImGui::GetIO().Framerate);
-	ImGui::SameLine(200);
-	std::stringstream mousePos;
-	mousePos << "Mouse Position: " << "X: " << this->mousePosView.x << " " << "Y: " << this->mousePosView.y;
-	ImGui::Text(mousePos.str().c_str());
-	static bool check = false;
-	if (ImGui::Checkbox("Show Mouse Position", &check))
-	{
-		SHOW_MOUSE_POS_DEBUG = check;
-		if (check)
-		{
-			SHOW_MOUSE_POS_DEBUG = check;
-		}
-		if (!check)
-		{
-			SHOW_MOUSE_POS_DEBUG = check;
-		}
-	}
+	#pragma endregion
+	ImGui::Text("%.f FPS", ImGui::GetIO().Framerate); /*Display Framerate*/
+	ImGui::SameLine(75);
+	ImGui::Text(mousePos.str().c_str()); /*Display Mouse position*/
+	ImGui::Separator();
 	if (ImGui::ColorEdit3("Color", color))
 	{
 		bgColor.r = static_cast<sf::Uint8>(color[0] * 255.f);
@@ -185,12 +181,32 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 			throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
 		this->background.setTexture(&backgroundTexture);
 	}
-	ImGui::SameLine(200);
-	if (ImGui::Button("Unload Texture"))
+	ImGui::SameLine(175);
+	if (ImGui::Button("Unload Texture")) { this->background.setTexture(nullptr); }
+	ImGui::Separator();
+
+	#pragma region Settings
+	if (ImGui::CollapsingHeader("Config/Engine Settings"))
 	{
-		this->background.setTexture(nullptr);
+		mINI::INIFile engine_cfg("config/engine.ini");
+		mINI::INIStructure ini;
+		engine_cfg.read(ini);
+		std::string resolution_w = ini["ENGINE"]["window_width"];
+		std::string resolution_h = ini["ENGINE"]["window_height"];
+
+		ImGui::Text("Current Settings:");
+		ImGui::Text("Window Height: ");
+		ImGui::SameLine(110);
+		ImGui::Text(resolution_h.c_str());
+
+		ImGui::Text("Window Width: ");
+		ImGui::SameLine(110);
+		ImGui::Text(resolution_w.c_str());
 	}
+	#pragma endregion
+
 	ImGui::End();
+	#pragma endregion
 	ImGui::SFML::Render(*target);
 }
 
@@ -201,17 +217,4 @@ void MainMenuState::Render(sf::RenderTarget* target)
 	target->draw(this->background);
 	this->renderButtons(target);
 	this->RenderImGUI(target);
-	if (SHOW_MOUSE_POS_DEBUG)
-	{
-		sf::Text mouseText;
-		mouseText.setPosition(this->mousePosView.x, this->mousePosView.y - 15);
-		mouseText.setOutlineColor(sf::Color::Black);
-		mouseText.setOutlineThickness(1.0f);
-		mouseText.setFont(this->font);
-		mouseText.setCharacterSize(18);
-		std::stringstream ss;
-		ss << "X: " << this->mousePosView.x << " | " << "Y: " << this->mousePosView.y;
-		mouseText.setString(ss.str());
-		target->draw(mouseText);
-	}
 }

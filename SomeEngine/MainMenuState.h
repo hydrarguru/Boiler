@@ -10,15 +10,15 @@ private:
 	sf::RectangleShape background;
 	sf::Font font;
 	bool showBackground = false;
-
 	std::map<std::string, Button*> buttons;
 	sf::Clock dtClock;
-
-	bool SHOW_MOUSE_POS_DEBUG = false;
-
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
-	bool showMenu = true;
+	bool SHOW_MENU = true;
+
+	const char* window_resolution[2] = { "1920 x 1080", "1280 x 720" };
+
+
 
 	//Functions
 	void initImGui();

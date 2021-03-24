@@ -72,8 +72,6 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	{
 		this->quit = true;
 	}
-	bool show = true;
-	ImGui::ShowDemoWindow(&show);
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
