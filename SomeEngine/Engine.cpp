@@ -23,19 +23,11 @@ bool Engine::Configure()
 			return false;
 	}
 	else
-		std::cout << "loaded config" << std::endl;
+		std::cout << "Engine::LOADED_CONFIG" << std::endl;
 }
 
 void Engine::initWindow()
 {
-	//Window Icon
-	if (!windowIcon.loadFromFile("Resources/Images/boiler_icon.png"))
-	{
-		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");
-	}
-	std::cout << "Engine::LOADED_WINDOW_ICON" << std::endl;
-	this->window->setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
-
 	this->videoModes = sf::VideoMode::getFullscreenModes();
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
 
@@ -92,7 +84,7 @@ void Engine::initKeys()
 	this->supportedKeys["MOVE_RIGHT"] = std::stoi(ini["GAME"]["D"]);
 	this->supportedKeys["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
 	this->supportedKeys["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
-	std::cout << "Loaded Keybindings" << std::endl;
+	std::cout << "Engine::LOADED_KEYBINDINGS" << std::endl;
 }
 
 void Engine::initState()
@@ -182,5 +174,5 @@ void Engine::Run()
 
 void Engine::endApp()
 {
-	std::cout << "Boiler Shutdown" << std::endl;
+	std::cout << "Engine::BOILER_SHUTDOWN" << std::endl;
 }

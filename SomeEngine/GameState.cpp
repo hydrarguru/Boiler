@@ -24,13 +24,13 @@ void GameState::initVars()
 void GameState::initGUI()
 {
 	#pragma region Buttons
-	this->buttons["MAIN_MENU_STATE"] = new Button(10, 170, 200, 75,
+	this->buttons["MAIN_MENU_STATE"] = new Button(925, 10, 125, 50,
 		&this->font, "Main Menu",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	#pragma endregion
 
 	#pragma region Labels
-	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 72, WHITE, BLACK);
+	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 36, WHITE, BLACK);
 	#pragma endregion
 }
 
@@ -59,7 +59,7 @@ void GameState::initFonts()
 	{
 		throw("ERROR::GameState::COULD NOT LOAD FONT");
 	}
-	std::cout << "GameState::Loaded Fonts" << std::endl;
+	std::cout << "GameState::LOADED_FONT" << std::endl;
 }
 
 void GameState::initImGui()
@@ -73,10 +73,6 @@ void GameState::initImGui()
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
 	ImGui::Begin("Game State Menu - Using ImGui");
-	if (ImGui::Button("Go back to menu"))
-	{
-		this->quit = true;
-	}
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
@@ -105,7 +101,7 @@ void GameState::updateButtons()
 	}
 	if (this->buttons["MAIN_MENU_STATE"]->isPressed()) //Exit the Application
 	{
-		this->endState();
+		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));
 	}
 }
 
