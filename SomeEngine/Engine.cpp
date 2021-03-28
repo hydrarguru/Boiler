@@ -28,6 +28,14 @@ bool Engine::Configure()
 
 void Engine::initWindow()
 {
+	//Window Icon
+	if (!windowIcon.loadFromFile("Resources/Images/boiler_icon.png"))
+	{
+		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");
+	}
+	std::cout << "Engine::LOADED_WINDOW_ICON" << std::endl;
+	this->window->setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
+
 	this->videoModes = sf::VideoMode::getFullscreenModes();
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
 
@@ -63,13 +71,7 @@ void Engine::initWindow()
 void Engine::initImGui()
 {
 	ImGui::SFML::Init(*this->window);
-	this->window->resetGLStates();
-	/*
-	ImGuiIO IO = ImGui::GetIO();
-	IO.Fonts->Clear();
-	IO.Fonts->AddFontFromFileTTF("Roboto.ttf", 18.f);
-	ImGui::SFML::UpdateFontTexture();
-	*/
+	this->window->resetGLStates();	
 }
 
 void Engine::initVars()

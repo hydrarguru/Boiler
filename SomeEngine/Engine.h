@@ -7,6 +7,7 @@ private:
 	/*Variables*/
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+	sf::Image windowIcon;
 
 	std::string windowTitle;
 	int window_height;
