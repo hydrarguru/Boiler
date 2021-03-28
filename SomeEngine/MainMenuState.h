@@ -1,6 +1,7 @@
 #pragma once
 #include "GameState.h"
 #include "Button.h"
+#include "Label.h"
 
 class MainMenuState : public State
 {
@@ -11,21 +12,19 @@ private:
 	sf::Font font;
 	bool showBackground = false;
 	std::map<std::string, Button*> buttons;
+	std::map<std::string, Label*> labels;
 	sf::Clock dtClock;
 	sf::Color bgColor;
 	float color[3] = { 0.f, 0.f, 0.f };
 	bool SHOW_MENU = true;
-
 	const char* window_resolution[2] = { "1920 x 1080", "1280 x 720" };
-
-
 
 	//Functions
 	void initImGui();
 	void initBackground();
 	void initFonts();
 	void initKeybinds();
-	void initButtons();
+	void initGUI();
 public:
 	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~MainMenuState();
@@ -36,7 +35,6 @@ public:
 	void Update(const float& dt);
 	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);
-	
-	void renderButtons(sf::RenderTarget* target);/*Handles all rendering for the buttons.*/
+	void renderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
 };
 

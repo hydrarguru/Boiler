@@ -22,3 +22,7 @@
 
 //mINI
 #include "mini/ini.h"
+
+//Defines of some colors that is used a lot
+#define BLACK sf::Color::Black
+#define WHITE sf::Color::White
