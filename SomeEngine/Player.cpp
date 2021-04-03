@@ -3,6 +3,8 @@
 /*Initializer Functions*/
 void Player::initVars()
 {
+	this->movementSpeed = 500;
+	this->playerHealth = 100;
 }
 
 void Player::initComponents()
@@ -24,3 +26,20 @@ Player::~Player()
 {
 
 }
+
+int Player::GetHealth()
+{
+	return playerHealth;
+}
+
+float Player::GetMovementSpeed()
+{
+	return this->movementSpeed;
+}
+
+void Player::SetSpeed(float speed)
+{
+	this->movementSpeed = speed;
+	std::cout << "Set Player Speed: " << movementSpeed << std::endl;
+}
+
