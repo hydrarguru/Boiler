@@ -17,7 +17,6 @@ MainMenuState::~MainMenuState()
 	{
 		delete it->second;
 	}
-	delete &this->windowIcon;
 }
 
 void MainMenuState::initImGui()
@@ -30,6 +29,7 @@ void MainMenuState::initImGui()
 
 void MainMenuState::initBackground()
 {
+	
 	if (!windowIcon.loadFromFile("Resources/Images/boiler_icon.png"))
 	{
 		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");

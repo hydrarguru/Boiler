@@ -1,29 +1,52 @@
 #include "Engine.h"
 
-bool Engine::Configure()
+bool Engine::generateEngineConfig()
 {
 	mINI::INIFile file("config/engine.ini");
+	std::cout << "Could not load config. Generating new config." << std::endl;
+	mINI::INIFile config("engine.ini");
 	mINI::INIStructure ini;
-	if (!file.read(ini))
-	{
-		std::cout << "Could not load config. Generating new config." << std::endl;
-
-		mINI::INIFile config("engine.ini");
-		mINI::INIStructure ini;
-		ini["ENGINE"]["window_name"] = "Boiler";
-		ini["ENGINE"]["window_height"] = "1080";
-		ini["ENGINE"]["window_width"] = "1920";
-		ini["DISPLAY"]["vsync"] = "1";
-		ini["DISPLAY"]["fullscreen"] = "1";
-		ini["DISPLAY"]["framerate"] = "144";
-		ini["DISPLAY"]["antialiasing"] = "0";
-		if (file.generate(ini, true))
-			return true;
-		else
-			return false;
-	}
+	ini["ENGINE"]["window_name"] = "Boiler";
+	ini["ENGINE"]["window_height"] = "1080";
+	ini["ENGINE"]["window_width"] = "1920";
+	ini["DISPLAY"]["vsync"] = "1";
+	ini["DISPLAY"]["fullscreen"] = "1";
+	ini["DISPLAY"]["framerate"] = "144";
+	ini["DISPLAY"]["antialiasing"] = "0";
+	if (file.generate(ini, true))
+		return true;
 	else
+		return false;
+}
+
+bool Engine::generateKeyConfig()
+{
+	mINI::INIFile file("config/keys.ini");
+	std::cout << "Could not load key config. Generating new key config." << std::endl;
+	mINI::INIFile config("keys.ini");
+	mINI::INIStructure ini;
+	ini["GAME"]["A"] = "0";
+	ini["GAME"]["D"] = "3";
+	ini["GAME"]["W"] = "22";
+	ini["GAME"]["S"] = "18";
+	ini["GAME"]["Escape"] = "36";
+	if (file.generate(ini, true))
+		return true;
+	else
+		return false;
+}
+
+bool Engine::Configure()
+{
+	mINI::INIFile config("config/engine.ini");
+	mINI::INIStructure ini;
+	if (!config.read(ini))
+		generateEngineConfig();
+	else
+	{
 		std::cout << "Engine::LOADED_CONFIG" << std::endl;
+		return true;
+	}
 }
 
 void Engine::initWindow()
@@ -75,10 +98,12 @@ void Engine::initVars()
 
 void Engine::initKeys()
 {
-	mINI::INIFile file("config/keys.ini");
+	mINI::INIFile keys("config/keys.ini");
 	mINI::INIStructure ini;
-	file.read(ini);
+	if (!keys.read(ini))
+		generateKeyConfig();
 
+	keys.read(ini);
 	this->supportedKeys["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
 	this->supportedKeys["MOVE_LEFT"] = std::stoi(ini["GAME"]["A"]);
 	this->supportedKeys["MOVE_RIGHT"] = std::stoi(ini["GAME"]["D"]);

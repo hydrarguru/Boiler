@@ -15,6 +15,7 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 GameState::~GameState()
 {
 	delete this->player;
+	delete &this->textures;
 }
 
 void GameState::initVars()
@@ -30,7 +31,7 @@ void GameState::initGUI()
 	#pragma endregion
 
 	#pragma region Labels
-	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 36, WHITE, BLACK);
+	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 36);
 	#pragma endregion
 }
 
@@ -72,6 +73,7 @@ void GameState::initImGui()
 
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
+	float speed;
 	ImGui::Begin("Game State Menu - Using ImGui");
 	ImGui::End();
 	ImGui::SFML::Render(*target);
@@ -88,7 +90,6 @@ void GameState::updateInput(const float& dt)
 		this->player->Move(dt, 0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 		this->player->Move(dt, 0.f, 1.f);
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
 		this->endState();
 }
@@ -99,9 +100,9 @@ void GameState::updateButtons()
 	{
 		it.second->Update(this->mousePosView);
 	}
-	if (this->buttons["MAIN_MENU_STATE"]->isPressed()) //Exit the Application
+	if (this->buttons["MAIN_MENU_STATE"]->isPressed())
 	{
-		this->states->push(new MainMenuState(this->window, this->supportedKeys, this->states));
+		this->quit = true; //End GameState and goes back to MainMenuState
 	}
 }
 

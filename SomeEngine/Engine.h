@@ -34,6 +34,10 @@ private:
 	void initKeys();
 	void initState();
 
+	/*Configs*/
+	bool generateEngineConfig();
+	bool generateKeyConfig();
+
 public:
 	//Constructor - Destructor
 	Engine();
