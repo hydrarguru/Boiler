@@ -73,8 +73,12 @@ void GameState::initImGui()
 
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
-	float speed;
-	ImGui::Begin("Game State Menu - Using ImGui");
+	float playerSpeed = player->GetMovementSpeed();
+	int playerHealth = player->GetHealth();
+
+	ImGui::Begin("Player | Game Settings");
+	if (ImGui::InputInt("Player Health", &playerHealth, 10, 100)) { player->SetPlayerHealth(playerHealth); }
+	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) { player->SetSpeed(playerSpeed); }
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
