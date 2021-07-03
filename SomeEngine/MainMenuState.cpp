@@ -51,7 +51,7 @@ void MainMenuState::initBackground()
 	else
 	{
 		this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-		this->background.setFillColor(sf::Color::White);
+		this->background.setFillColor(sf::Color::Black);
 		color[0] = background.getFillColor().r;
 		color[1] = background.getFillColor().g;
 		color[2] = background.getFillColor().b;
@@ -60,7 +60,7 @@ void MainMenuState::initBackground()
 
 void MainMenuState::initFonts()
 {
-	if (!this->font.loadFromFile("Fonts/Roboto.ttf"))
+	if (!this->font.loadFromFile("Fonts/VCR.ttf"))
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}
@@ -92,8 +92,8 @@ void MainMenuState::initGUI()
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	#pragma endregion
 	#pragma region Labels
-	this->labels["MainMenu"] = new Label(700, 10, "Main Menu", &this->font, 72, WHITE, BLACK);
-	this->labels["test"] = new Label(690, 150, "test", &this->font, 64, sf::Color::Cyan, BLACK);
+	//this->labels["MainMenu"] = new Label(700, 10, "Main Menu", &this->font, 72, WHITE, BLACK);
+	//this->labels["test"] = new Label(690, 150, "test", &this->font, 64, sf::Color::Cyan, BLACK);
 	#pragma endregion
 }
 
