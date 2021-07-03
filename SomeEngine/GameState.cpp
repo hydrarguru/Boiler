@@ -79,9 +79,10 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	static float playerSpeed = player->GetMovementSpeed();
 
 	ImGui::Begin("Player | Game Settings");
-	ImGui::PushItemWidth(150.f);
-	ImGui::InputInt("Player Health: ", &playerHealth, 0, 1000);
-	ImGui::SameLine(100.f);
+
+	ImGui::PushItemWidth(100.f);
+	ImGui::InputInt("Player Health", &playerHealth, 0, 1000);
+	ImGui::SameLine();
 	if (ImGui::Button("Set"))
 	{
 		int _playerHealth = playerHealth;
