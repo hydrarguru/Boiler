@@ -29,7 +29,7 @@ Player::~Player()
 
 int Player::GetHealth()
 {
-	return playerHealth;
+	return this->playerHealth;
 }
 
 float Player::GetMovementSpeed()
@@ -41,5 +41,11 @@ void Player::SetSpeed(float speed)
 {
 	this->movementSpeed = speed;
 	std::cout << "Set Player Speed: " << movementSpeed << std::endl;
+}
+
+void Player::SetPlayerHealth(int health)
+{
+	this->playerHealth = health;
+	std::cout << "Set Player Health: " << playerHealth << std::endl;
 }
 

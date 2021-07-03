@@ -18,5 +18,6 @@ public:
 	int GetHealth();
 	float GetMovementSpeed();
 	void SetSpeed(float speed);
+	void SetPlayerHealth(int health);
 };
 
