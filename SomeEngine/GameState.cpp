@@ -75,22 +75,28 @@ void GameState::initImGui()
 
 void GameState::RenderImGui(sf::RenderTarget* target)
 {
-	float playerSpeed = player->GetMovementSpeed();
-	int playerHealth = player->GetHealth();
+	static int playerHealth = player->GetHealth();
+	static float playerSpeed = player->GetMovementSpeed();
 
 	ImGui::Begin("Player | Game Settings");
-	if (ImGui::InputInt("Player Health", &playerHealth, 10, 100)) 
-	{ 
-		player->SetPlayerHealth(playerHealth);
+	ImGui::PushItemWidth(150.f);
+	ImGui::InputInt("Player Health: ", &playerHealth, 0, 1000);
+	ImGui::SameLine(100.f);
+	if (ImGui::Button("Set"))
+	{
+		int _playerHealth = playerHealth;
+		player->SetPlayerHealth(_playerHealth);
 		this->labels.erase("PlayerHealth"); // Removes the element from the map
 		this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24); // Adds new element to the map
 	}
-	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) 
+
+	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f))
 	{
 		player->SetSpeed(playerSpeed);
 		this->labels.erase("PlayerSpeed"); // Removes the element from the map
 		this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24); // Adds new element to the map
 	}
+
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
