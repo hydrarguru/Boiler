@@ -20,6 +20,7 @@ GameState::~GameState()
 
 void GameState::initVars()
 {
+	//Test Commit to development branch
 }
 
 void GameState::initGUI()
