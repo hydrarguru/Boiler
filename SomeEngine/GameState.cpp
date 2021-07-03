@@ -85,8 +85,7 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	ImGui::SameLine();
 	if (ImGui::Button("Set"))
 	{
-		int _playerHealth = playerHealth;
-		player->SetPlayerHealth(_playerHealth);
+		player->SetPlayerHealth(playerHealth);
 		this->labels.erase("PlayerHealth"); // Removes the element from the map
 		this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24); // Adds new element to the map
 	}
