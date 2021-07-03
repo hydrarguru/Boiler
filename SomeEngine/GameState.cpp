@@ -32,6 +32,8 @@ void GameState::initGUI()
 
 	#pragma region Labels
 	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 36);
+	this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24);
+	this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24);
 	#pragma endregion
 }
 
@@ -77,8 +79,18 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	int playerHealth = player->GetHealth();
 
 	ImGui::Begin("Player | Game Settings");
-	if (ImGui::InputInt("Player Health", &playerHealth, 10, 100)) { player->SetPlayerHealth(playerHealth); }
-	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) { player->SetSpeed(playerSpeed); }
+	if (ImGui::InputInt("Player Health", &playerHealth, 10, 100)) 
+	{ 
+		player->SetPlayerHealth(playerHealth);
+		this->labels.erase("PlayerHealth"); // Removes the element from the map
+		this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24); // Adds new element to the map
+	}
+	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) 
+	{
+		player->SetSpeed(playerSpeed);
+		this->labels.erase("PlayerSpeed"); // Removes the element from the map
+		this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24); // Adds new element to the map
+	}
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
