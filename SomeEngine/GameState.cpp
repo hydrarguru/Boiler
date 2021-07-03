@@ -31,7 +31,6 @@ void GameState::initGUI()
 	#pragma endregion
 
 	#pragma region Labels
-	this->labels["GameState"] = new Label(700, 10, "Game State", &this->font, 36);
 	this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24);
 	this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24);
 	#pragma endregion
