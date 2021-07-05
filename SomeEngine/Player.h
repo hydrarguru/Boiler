@@ -8,8 +8,8 @@ private:
 	int playerHealth;
 
 	/*Initializer Functions*/
-	void initVars();
-	void initComponents();
+	void InitVariables();
+	void InitComponents();
 
 public:
 	Player(sf::Texture* texture, float x, float y);

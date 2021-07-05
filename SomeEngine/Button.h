@@ -37,7 +37,7 @@ public:
 	~Button();
 
 	//Accessors
-	const bool isPressed() const;
+	const bool IsPressed() const;
 
 
 	//Functions

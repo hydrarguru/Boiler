@@ -3,13 +3,13 @@
 
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
 {
-	this->initFonts();
-	this->initVars();
-	this->initKeybinds();
-	this->initTextures();
-	this->initPlayers();
-	this->initImGui();
-	this->initGUI();
+	this->InitFonts();
+	this->InitVariables();
+	this->InitKeybinds();
+	this->InitTextures();
+	this->InitPlayer();
+	this->InitImGui();
+	this->InitGUI();
 }
 
 GameState::~GameState()
@@ -18,12 +18,12 @@ GameState::~GameState()
 	delete &this->textures;
 }
 
-void GameState::initVars()
+void GameState::InitVariables()
 {
 	//Test Commit to development branch
 }
 
-void GameState::initGUI()
+void GameState::InitGUI()
 {
 	#pragma region Buttons
 	this->buttons["MAIN_MENU_STATE"] = new Button(925, 10, 125, 50,
@@ -37,7 +37,7 @@ void GameState::initGUI()
 	#pragma endregion
 }
 
-void GameState::initKeybinds()
+void GameState::InitKeybinds()
 {
 	this->keybinds["CLOSE"] = this->supportedKeys->at("CLOSE");
 	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("MOVE_LEFT");
@@ -46,17 +46,17 @@ void GameState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("MOVE_DOWN");
 }
 
-void GameState::initTextures()
+void GameState::InitTextures()
 {
 	this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Skeleton_Idle.png");
 }
 
-void GameState::initPlayers()
+void GameState::InitPlayer()
 {
 	this->player = new Player(&this->textures["PLAYER_IDLE"], 10, 10);
 }
 
-void GameState::initFonts()
+void GameState::InitFonts()
 {
 	if (!this->font.loadFromFile("Fonts/Roboto.ttf"))
 	{
@@ -65,7 +65,7 @@ void GameState::initFonts()
 	std::cout << "GameState::LOADED_FONT" << std::endl;
 }
 
-void GameState::initImGui()
+void GameState::InitImGui()
 {
 	ImGui::SFML::Init(*this->window);
 	this->window->resetGLStates();
@@ -106,7 +106,7 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 	ImGui::SFML::Render(*target);
 }
 
-void GameState::updateInput(const float& dt)
+void GameState::UpdateInput(const float& dt)
 {
 	//Update Player Input
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
@@ -118,16 +118,16 @@ void GameState::updateInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
 		this->player->Move(dt, 0.f, 1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-		this->endState();
+		this->EndState();
 }
 
-void GameState::updateButtons()
+void GameState::UpdateButtons()
 {
 	for (auto& it : this->buttons)
 	{
 		it.second->Update(this->mousePosView);
 	}
-	if (this->buttons["MAIN_MENU_STATE"]->isPressed())
+	if (this->buttons["MAIN_MENU_STATE"]->IsPressed())
 	{
 		this->quit = true; //End GameState and goes back to MainMenuState
 	}
@@ -135,14 +135,14 @@ void GameState::updateButtons()
 
 void GameState::Update(const float& dt)
 {
-	this->updateMousePosition();
-	this->updateInput(dt);
+	this->UpdateMousePosition();
+	this->UpdateInput(dt);
 	this->player->Update(dt);
 	ImGui::SFML::Update(*this->window, dtClock.restart());
-	this->updateButtons();
+	this->UpdateButtons();
 }
 
-void GameState::renderGUI(sf::RenderTarget* target)
+void GameState::RenderGUI(sf::RenderTarget* target)
 {
 	#pragma region Buttons
 	for (auto& it : this->buttons)
@@ -164,7 +164,7 @@ void GameState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 	this->player->Render(target);
-	renderGUI(target);
+	RenderGUI(target);
 	RenderImGui(target);
 }
 

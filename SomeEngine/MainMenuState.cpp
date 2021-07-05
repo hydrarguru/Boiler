@@ -3,11 +3,11 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
-	this->initImGui();
-	this->initFonts();
-	this->initBackground();
-	this->initKeybinds();
-	this->initGUI();
+	this->InitImGui();
+	this->InitFont();
+	this->InitBackground();
+	this->InitKeybinds();
+	this->InitGUI();
 }
 
 MainMenuState::~MainMenuState()
@@ -19,7 +19,7 @@ MainMenuState::~MainMenuState()
 	}
 }
 
-void MainMenuState::initImGui()
+void MainMenuState::InitImGui()
 {
 	ImGui::SFML::Init(*this->window);
 	this->window->resetGLStates();
@@ -27,7 +27,7 @@ void MainMenuState::initImGui()
 	ImGui::SetCurrentContext(ctx);
 }
 
-void MainMenuState::initBackground()
+void MainMenuState::InitBackground()
 {
 	
 	if (!windowIcon.loadFromFile("Resources/Images/boiler_icon.png"))
@@ -58,7 +58,7 @@ void MainMenuState::initBackground()
 	}
 }
 
-void MainMenuState::initFonts()
+void MainMenuState::InitFont()
 {
 	if (!this->font.loadFromFile("Fonts/VCR.ttf"))
 	{
@@ -67,7 +67,7 @@ void MainMenuState::initFonts()
 	std::cout << "MainMenuState::Loaded Fonts" << std::endl;
 }
 
-void MainMenuState::initKeybinds()
+void MainMenuState::InitKeybinds()
 {
 	this->keybinds["CLOSE"] = this->supportedKeys->at("CLOSE");
 	this->keybinds["MOVE_LEFT"] = this->supportedKeys->at("MOVE_LEFT");
@@ -76,7 +76,7 @@ void MainMenuState::initKeybinds()
 	this->keybinds["MOVE_DOWN"] = this->supportedKeys->at("MOVE_DOWN");
 }
 
-void MainMenuState::initGUI()
+void MainMenuState::InitGUI()
 {
 	#pragma region Buttons
 	this->buttons["GAME_STATE"] = new Button(10, 10, 200, 75,
@@ -97,34 +97,34 @@ void MainMenuState::initGUI()
 	#pragma endregion
 }
 
-void MainMenuState::updateInput(const float& dt)
+void MainMenuState::UpdateInput(const float& dt)
 {
 }
 
-void MainMenuState::updateButtons()
+void MainMenuState::UpdateButtons()
 {
 	for (auto &it : this->buttons)
 	{
 		it.second->Update(this->mousePosView);
 	}
 
-	if (this->buttons["GAME_STATE"]->isPressed()) //Exit the Application
+	if (this->buttons["GAME_STATE"]->IsPressed()) //Exit the Application
 	{
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 	}
 
-	if (this->buttons["SETTINGS_STATE"]->isPressed())
+	if (this->buttons["SETTINGS_STATE"]->IsPressed())
 	{
 		std::cout << "Settings Button" << std::endl;
 	}
 
-	if (this->buttons["EXIT_STATE"]->isPressed()) //Exit the Application
+	if (this->buttons["EXIT_STATE"]->IsPressed()) //Exit the Application
 	{
-		this->endState();
+		this->EndState();
 	}
 }
 
-void MainMenuState::renderGUI(sf::RenderTarget* target)
+void MainMenuState::RenderGUI(sf::RenderTarget* target)
 {
 	#pragma region Buttons
 	for (auto& it : this->buttons)
@@ -145,9 +145,9 @@ void MainMenuState::renderGUI(sf::RenderTarget* target)
 void MainMenuState::Update(const float& dt)
 {
 	ImGui::SFML::Update(*this->window, dtClock.restart());
-	this->updateMousePosition();
-	this->updateInput(dt);
-	this->updateButtons();
+	this->UpdateMousePosition();
+	this->UpdateInput(dt);
+	this->UpdateButtons();
 }
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
@@ -163,7 +163,7 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		if (ImGui::BeginMenu("File"))
 		{
 			if (ImGui::MenuItem("Start Game")) { this->states->push(new GameState(this->window, this->supportedKeys, this->states)); }
-			if (ImGui::MenuItem("End App")) { this->endState(); }
+			if (ImGui::MenuItem("End App")) { this->EndState(); }
 			ImGui::EndMenu();
 		}
 		ImGui::EndMenuBar();
@@ -220,6 +220,6 @@ void MainMenuState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 	target->draw(this->background);
-	this->renderGUI(target);
+	this->RenderGUI(target);
 	this->RenderImGUI(target);
 }

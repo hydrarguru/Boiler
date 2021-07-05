@@ -17,23 +17,23 @@ private:
 
 
 	//Functions
-	void initKeybinds();
-	void initTextures();
-	void initPlayers();
+	void InitKeybinds();
+	void InitTextures();
+	void InitPlayer();
 
-	void initFonts();
-	void initImGui();
-	void initVars();
-	void initGUI();
+	void InitFonts();
+	void InitImGui();
+	void InitVariables();
+	void InitGUI();
 public:
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~GameState();
 
 	/*Functions*/
 	void RenderImGui(sf::RenderTarget* target);
-	void updateInput(const float& dt);
-	void updateButtons();
+	void UpdateInput(const float& dt);
+	void UpdateButtons();
 	void Update(const float& dt);
 	void Render(sf::RenderTarget* target);
-	void renderGUI(sf::RenderTarget* target);
+	void RenderGUI(sf::RenderTarget* target);
 };

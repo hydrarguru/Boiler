@@ -13,17 +13,17 @@ State::~State()
 
 }
 
-const bool& State::getQuit() const
+const bool& State::GetQuit() const
 {
 	return this->quit;
 }
 
-void State::endState()
+void State::EndState()
 {
 	this->quit = true;
 }
 
-void State::updateMousePosition()
+void State::UpdateMousePosition()
 {
 	this->mousePosScreen = sf::Mouse::getPosition();
 	this->mousePosWindow = sf::Mouse::getPosition(*this->window);

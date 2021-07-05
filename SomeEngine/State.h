@@ -22,17 +22,17 @@ protected:
 	std::map<std::string, sf::Texture> textures;
 
 	//Functions
-	virtual void initKeybinds() = 0;
+	virtual void InitKeybinds() = 0;
 
 public:
 	State(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	~State();
 
-	const bool& getQuit() const;
-	void endState();
+	const bool& GetQuit() const;
+	void EndState();
 
-	virtual void updateMousePosition();
-	virtual void updateInput(const float& dt) = 0;
+	virtual void UpdateMousePosition();
+	virtual void UpdateInput(const float& dt) = 0;
 	virtual void Update(const float& dt) = 0;
 	virtual void Render(sf::RenderTarget* target) = 0;
 };

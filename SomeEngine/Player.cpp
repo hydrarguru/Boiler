@@ -1,13 +1,13 @@
 #include "Player.h"
 
 /*Initializer Functions*/
-void Player::initVars()
+void Player::InitVariables()
 {
 	this->movementSpeed = 500;
 	this->playerHealth = 100;
 }
 
-void Player::initComponents()
+void Player::InitComponents()
 {
 	
 }
@@ -15,8 +15,8 @@ void Player::initComponents()
 /*Construct/Deconstruct*/
 Player::Player(sf::Texture* texture, float x, float y)
 {
-	this->initVars();
-	this->initComponents();
+	this->InitVariables();
+	this->InitComponents();
 
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);

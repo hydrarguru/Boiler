@@ -28,15 +28,15 @@ private:
 
 	/*Init*/
 	bool Configure();
-	void initImGui();
-	void initVars();
-	void initWindow();
-	void initKeys();
-	void initState();
+	void InitImGui();
+	void InitVariables();
+	void InitWindow();
+	void InitKeybinds();
+	void InitState();
 
 	/*Configs*/
-	bool generateEngineConfig();
-	bool generateKeyConfig();
+	bool GenerateEngineConfig();
+	bool GenerateKeyConfig();
 
 public:
 	//Constructor - Destructor
@@ -49,7 +49,7 @@ public:
 
 	//Update
 	void UpdateDt();
-	void updateSFMLEvents();
+	void UpdateSFMLEvents();
 	void Update();
 
 	//Render

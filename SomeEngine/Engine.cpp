@@ -1,6 +1,6 @@
 #include "Engine.h"
 
-bool Engine::generateEngineConfig()
+bool Engine::GenerateEngineConfig()
 {
 	mINI::INIFile file("config/engine.ini");
 	std::cout << "Could not load config. Generating new config." << std::endl;
@@ -19,7 +19,7 @@ bool Engine::generateEngineConfig()
 		return false;
 }
 
-bool Engine::generateKeyConfig()
+bool Engine::GenerateKeyConfig()
 {
 	mINI::INIFile file("config/keys.ini");
 	std::cout << "Could not load key config. Generating new key config." << std::endl;
@@ -41,7 +41,7 @@ bool Engine::Configure()
 	mINI::INIFile config("config/engine.ini");
 	mINI::INIStructure ini;
 	if (!config.read(ini))
-		generateEngineConfig();
+		GenerateEngineConfig();
 	else
 	{
 		std::cout << "Engine::LOADED_CONFIG" << std::endl;
@@ -49,7 +49,7 @@ bool Engine::Configure()
 	}
 }
 
-void Engine::initWindow()
+void Engine::InitWindow()
 {
 	this->videoModes = sf::VideoMode::getFullscreenModes();
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
@@ -83,25 +83,25 @@ void Engine::initWindow()
 	this->window->setVerticalSyncEnabled(vsync);
 }
 
-void Engine::initImGui()
+void Engine::InitImGui()
 {
 	ImGui::SFML::Init(*this->window);
 	this->window->resetGLStates();	
 }
 
-void Engine::initVars()
+void Engine::InitVariables()
 {
 	this->window = nullptr;
 	this->fullscreen = false;
 	this->dt = 0;
 }
 
-void Engine::initKeys()
+void Engine::InitKeybinds()
 {
 	mINI::INIFile keys("config/keys.ini");
 	mINI::INIStructure ini;
 	if (!keys.read(ini))
-		generateKeyConfig();
+		GenerateKeyConfig();
 
 	keys.read(ini);
 	this->supportedKeys["CLOSE"] = std::stoi(ini["GAME"]["Escape"]);
@@ -112,7 +112,7 @@ void Engine::initKeys()
 	std::cout << "Engine::LOADED_KEYBINDINGS" << std::endl;
 }
 
-void Engine::initState()
+void Engine::InitState()
 {
 	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
@@ -121,10 +121,10 @@ Engine::Engine()
 {
 	if (this->Configure()) //checks if a config exist, otherwise generate a new one and keep the application run.
 	{
-		this->initWindow();
-		this->initImGui();
-		this->initKeys();
-		this->initState();
+		this->InitWindow();
+		this->InitImGui();
+		this->InitKeybinds();
+		this->InitState();
 	}
 }
 
@@ -145,7 +145,7 @@ void Engine::UpdateDt()
 	this->dt = this->dtClock.restart().asSeconds();
 }
 
-void Engine::updateSFMLEvents()
+void Engine::UpdateSFMLEvents()
 {
 	while (this->window->pollEvent(sfEvent)) 
 	{
@@ -159,14 +159,14 @@ void Engine::updateSFMLEvents()
 
 void Engine::Update()
 {
-	this->updateSFMLEvents();
+	this->UpdateSFMLEvents();
 	if (!this->states.empty())
 	{
 		this->states.top()->Update(this->dt);
 
-		if (this->states.top()->getQuit())
+		if (this->states.top()->GetQuit())
 		{
-			this->states.top()->endState();
+			this->states.top()->EndState();
 			delete this->states.top();
 			this->states.pop();
 		}

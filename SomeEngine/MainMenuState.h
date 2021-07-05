@@ -21,21 +21,21 @@ private:
 	const char* window_resolution[2] = { "1920 x 1080", "1280 x 720" };
 
 	//Functions
-	void initImGui();
-	void initBackground();
-	void initFonts();
-	void initKeybinds();
-	void initGUI();
+	void InitImGui();
+	void InitBackground();
+	void InitFont();
+	void InitKeybinds();
+	void InitGUI();
 public:
 	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
 	virtual ~MainMenuState();
 
 	/*Functions*/
-	void updateInput(const float& dt);
-	void updateButtons();/*Handles updating for all the buttons.*/
+	void UpdateInput(const float& dt);
+	void UpdateButtons();/*Handles updating for all the buttons.*/
 	void Update(const float& dt);
 	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);
-	void renderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
+	void RenderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
 };
 
