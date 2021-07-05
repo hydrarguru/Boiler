@@ -77,8 +77,10 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 {
 	static int playerHealth = player->GetHealth();
 	static float playerSpeed = player->GetMovementSpeed();
+	ImGuiIO& io = ImGui::GetIO();
 
 	ImGui::Begin("GameState");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	if (ImGui::CollapsingHeader("Player Settings"))
 	{
 		ImGui::PushItemWidth(100.f);
