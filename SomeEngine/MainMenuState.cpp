@@ -30,7 +30,7 @@ void MainMenuState::InitImGui()
 void MainMenuState::InitBackground()
 {
 	
-	if (!windowIcon.loadFromFile("Resources/Images/boiler_icon.png"))
+	if (!windowIcon.loadFromFile(ENGINE_ICON))
 	{
 		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");
 	}
@@ -60,7 +60,7 @@ void MainMenuState::InitBackground()
 
 void MainMenuState::InitFont()
 {
-	if (!this->font.loadFromFile("Fonts/VCR.ttf"))
+	if (!this->font.loadFromFile(ENGINE_FONT))
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}

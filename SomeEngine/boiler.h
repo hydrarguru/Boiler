@@ -23,6 +23,6 @@
 //mINI
 #include "mini/ini.h"
 
-//Defines of some colors that is used a lot
-#define BLACK sf::Color::Black
-#define WHITE sf::Color::White
+//Resource defines:
+constexpr auto ENGINE_ICON = "Resources/Images/boiler_icon.png";
+constexpr auto ENGINE_FONT = "Fonts/Roboto.ttf";

@@ -58,7 +58,7 @@ void GameState::InitPlayer()
 
 void GameState::InitFonts()
 {
-	if (!this->font.loadFromFile("Fonts/Roboto.ttf"))
+	if (!this->font.loadFromFile(ENGINE_FONT))
 	{
 		throw("ERROR::GameState::COULD NOT LOAD FONT");
 	}
