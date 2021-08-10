@@ -29,33 +29,17 @@ void MainMenuState::InitImGui()
 
 void MainMenuState::InitBackground()
 {
-	
 	if (!windowIcon.loadFromFile(ENGINE_ICON))
 	{
 		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");
 	}
 	std::cout << "MainMenuState::LOADED_WINDOW_ICON" << std::endl;
 	this->window->setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
-
-	if (showBackground)
-	{
-		this->background.setSize(sf::Vector2f
-		(
-			static_cast<float>(this->window->getSize().x),
-			static_cast<float>(this->window->getSize().y))
-		);
-		if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
-			throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
-		this->background.setTexture(&backgroundTexture);
-	}
-	else
-	{
-		this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-		this->background.setFillColor(sf::Color::Black);
-		color[0] = background.getFillColor().r;
-		color[1] = background.getFillColor().g;
-		color[2] = background.getFillColor().b;
-	}
+	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	this->background.setFillColor(sf::Color::Black);
+	color[0] = background.getFillColor().r;
+	color[1] = background.getFillColor().g;
+	color[2] = background.getFillColor().b;
 }
 
 void MainMenuState::InitFont()
@@ -152,23 +136,12 @@ void MainMenuState::Update(const float& dt)
 
 void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 {
+	static bool SHOW_DEMOWINDOW;
 	std::stringstream mousePos;
 	mousePos << "Mouse Position: " << "X: " << this->mousePosView.x << " " << "Y: " << this->mousePosView.y;
 	#pragma region ImGuiWindow
-	ImGui::ShowDemoWindow(&SHOW_MENU);
-	ImGui::Begin("Main Menu State", &SHOW_MENU, ImGuiWindowFlags_MenuBar);
-	#pragma region MenuBar
-	if (ImGui::BeginMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Start Game")) { this->states->push(new GameState(this->window, this->supportedKeys, this->states)); }
-			if (ImGui::MenuItem("End App")) { this->EndState(); }
-			ImGui::EndMenu();
-		}
-		ImGui::EndMenuBar();
-	}
-	#pragma endregion
+	ImGui::ShowDemoWindow(&SHOW_DEMOWINDOW);
+	ImGui::Begin("Main Menu State", &SHOW_MENU);
 	ImGui::Text("%.f FPS", ImGui::GetIO().Framerate); /*Display Framerate*/
 	ImGui::SameLine(75);
 	ImGui::Text(mousePos.str().c_str()); /*Display Mouse position*/
@@ -180,36 +153,7 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		bgColor.b = static_cast<sf::Uint8>(color[2] * 255.f);
 		background.setFillColor(bgColor);
 	}
-	if (ImGui::Button("Set Main Menu Texture"))
-	{
-		if (!this->backgroundTexture.loadFromFile("Resources/Images/lab.jpg"))
-			throw("MAINMENU:ERROR: COULD NOT LOAD BACKGROUND IMAGE");
-		this->background.setTexture(&backgroundTexture);
-	}
-	ImGui::SameLine(175);
-	if (ImGui::Button("Unload Texture")) { this->background.setTexture(nullptr); }
 	ImGui::Separator();
-
-	#pragma region Settings
-	if (ImGui::CollapsingHeader("Config/Engine Settings"))
-	{
-		mINI::INIFile engine_cfg("config/engine.ini");
-		mINI::INIStructure ini;
-		engine_cfg.read(ini);
-		std::string resolution_w = ini["ENGINE"]["window_width"];
-		std::string resolution_h = ini["ENGINE"]["window_height"];
-
-		ImGui::Text("Current Settings:");
-		ImGui::Text("Window Height: ");
-		ImGui::SameLine(110);
-		ImGui::Text(resolution_h.c_str());
-
-		ImGui::Text("Window Width: ");
-		ImGui::SameLine(110);
-		ImGui::Text(resolution_w.c_str());
-	}
-	#pragma endregion
-
 	ImGui::End();
 	#pragma endregion
 	ImGui::SFML::Render(*target);
