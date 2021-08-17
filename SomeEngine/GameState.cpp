@@ -30,11 +30,6 @@ void GameState::InitGUI()
 		&this->font, "Main Menu",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	#pragma endregion
-
-	#pragma region Labels
-	this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24);
-	this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24);
-	#pragma endregion
 }
 
 void GameState::InitKeybinds()
@@ -86,19 +81,8 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 		ImGui::PushItemWidth(100.f);
 		ImGui::InputInt("Player Health", &playerHealth, 0, 1000);
 		ImGui::SameLine();
-		if (ImGui::Button("Set"))
-		{
-			player->SetPlayerHealth(playerHealth);
-			this->labels.erase("PlayerHealth"); // Removes the element from the map
-			this->labels["PlayerHealth"] = new Label(1200, 10, "Player Health: " + std::to_string(player->GetHealth()), &this->font, 24); // Adds new element to the map
-		}
-
-		if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f))
-		{
-			player->SetSpeed(playerSpeed);
-			this->labels.erase("PlayerSpeed"); // Removes the element from the map
-			this->labels["PlayerSpeed"] = new Label(1200, 50, "Player Speed: " + std::to_string(player->GetMovementSpeed()), &this->font, 24); // Adds new element to the map
-		}
+		if (ImGui::Button("Set")) { player->SetPlayerHealth(playerHealth); }
+		if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) { player->SetSpeed(playerSpeed); }
 	}
 
 
@@ -146,13 +130,6 @@ void GameState::RenderGUI(sf::RenderTarget* target)
 {
 	#pragma region Buttons
 	for (auto& it : this->buttons)
-	{
-		it.second->Render(target);
-	}
-	#pragma endregion
-
-	#pragma region Labels
-	for (auto& it : this->labels)
 	{
 		it.second->Render(target);
 	}

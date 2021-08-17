@@ -11,7 +11,6 @@ private:
 	sf::Clock dtClock;
 
 
-	std::map<std::string, Label*> labels;
 	std::map<std::string, Button*> buttons;
 	sf::Font font;
 
