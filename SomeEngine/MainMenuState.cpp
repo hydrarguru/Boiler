@@ -33,7 +33,7 @@ void MainMenuState::InitBackground()
 	{
 		throw("ERROR::MainMenuState::COULD_NOT_LOAD_ICON");
 	}
-	std::cout << "MainMenuState::LOADED_WINDOW_ICON" << std::endl;
+	DebugLog("MainMenuState::LOADED_WINDOW_ICON");
 	this->window->setIcon(windowIcon.getSize().x, windowIcon.getSize().y, windowIcon.getPixelsPtr());
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::Black);
@@ -48,7 +48,7 @@ void MainMenuState::InitFont()
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}
-	std::cout << "MainMenuState::Loaded Fonts" << std::endl;
+	DebugLog("MainMenuState::Loaded Fonts");
 }
 
 void MainMenuState::InitKeybinds()
@@ -99,7 +99,7 @@ void MainMenuState::UpdateButtons()
 
 	if (this->buttons["SETTINGS_STATE"]->IsPressed())
 	{
-		std::cout << "Settings Button" << std::endl;
+		//std::cout << "Settings Button" << std::endl;
 	}
 
 	if (this->buttons["EXIT_STATE"]->IsPressed()) //Exit the Application
@@ -154,6 +154,18 @@ void MainMenuState::RenderImGUI(sf::RenderTarget* target)
 		background.setFillColor(bgColor);
 	}
 	ImGui::Separator();
+
+	static char text[1024 * 16] =
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n"
+		"Test\n";
+	ImGui::InputTextMultiline("##source", text, IM_ARRAYSIZE(text), ImVec2(-FLT_MIN, ImGui::GetTextLineHeight() * 16), ImGuiInputTextFlags_ReadOnly);
 	ImGui::End();
 	#pragma endregion
 	ImGui::SFML::Render(*target);

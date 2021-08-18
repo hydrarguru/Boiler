@@ -76,16 +76,12 @@ void GameState::RenderImGui(sf::RenderTarget* target)
 
 	ImGui::Begin("GameState");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
-	if (ImGui::CollapsingHeader("Player Settings"))
-	{
-		ImGui::PushItemWidth(100.f);
-		ImGui::InputInt("Player Health", &playerHealth, 0, 1000);
-		ImGui::SameLine();
-		if (ImGui::Button("Set")) { player->SetPlayerHealth(playerHealth); }
-		if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) { player->SetSpeed(playerSpeed); }
-	}
-
-
+	ImGui::Separator();
+	ImGui::PushItemWidth(100.f);
+	ImGui::InputInt("Player Health", &playerHealth, 0, 1000);
+	ImGui::SameLine();
+	if (ImGui::Button("Set")) { player->SetPlayerHealth(playerHealth); }
+	if (ImGui::InputFloat("Player Speed", &playerSpeed, 10.f, 100.f)) { player->SetSpeed(playerSpeed); }
 	ImGui::End();
 	ImGui::SFML::Render(*target);
 }
