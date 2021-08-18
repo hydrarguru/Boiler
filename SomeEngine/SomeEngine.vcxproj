@@ -143,34 +143,34 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Button.cpp" />
-    <ClCompile Include="Engine.cpp" />
-    <ClCompile Include="Entity.cpp" />
+    <ClCompile Include="src\GUI\Button.cpp" />
+    <ClCompile Include="src\Core\Engine.cpp" />
+    <ClCompile Include="src\Entity\Entity.cpp" />
     <ClCompile Include="include\ImGuiSFML\imgui-SFML.cpp" />
     <ClCompile Include="include\ImGui\imgui.cpp" />
     <ClCompile Include="include\ImGui\imgui_demo.cpp" />
     <ClCompile Include="include\ImGui\imgui_draw.cpp" />
     <ClCompile Include="include\ImGui\imgui_widgets.cpp" />
-    <ClCompile Include="Label.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="MainMenuState.cpp" />
-    <ClCompile Include="MovementComponent.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="State.cpp" />
-    <ClCompile Include="GameState.cpp" />
+    <ClCompile Include="src\GUI\Label.cpp" />
+    <ClCompile Include="src\Core\main.cpp" />
+    <ClCompile Include="src\States\MainMenuState.cpp" />
+    <ClCompile Include="src\Components\MovementComponent.cpp" />
+    <ClCompile Include="src\Entity\Player.cpp" />
+    <ClCompile Include="src\States\State.cpp" />
+    <ClCompile Include="src\States\GameState.cpp" />
     <ClCompile Include="unused_code.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="boiler.h" />
-    <ClInclude Include="Button.h" />
-    <ClInclude Include="Engine.h" />
-    <ClInclude Include="Entity.h" />
-    <ClInclude Include="Label.h" />
-    <ClInclude Include="MainMenuState.h" />
-    <ClInclude Include="MovementComponent.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="State.h" />
-    <ClInclude Include="GameState.h" />
+    <ClInclude Include="src\Core\boiler.h" />
+    <ClInclude Include="src\GUI\Button.h" />
+    <ClInclude Include="src\Core\Engine.h" />
+    <ClInclude Include="src\Entity\Entity.h" />
+    <ClInclude Include="src\GUI\Label.h" />
+    <ClInclude Include="src\States\MainMenuState.h" />
+    <ClInclude Include="src\Components\MovementComponent.h" />
+    <ClInclude Include="src\Entity\Player.h" />
+    <ClInclude Include="src\States\State.h" />
+    <ClInclude Include="src\States\GameState.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

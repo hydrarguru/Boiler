@@ -7,8 +7,6 @@
 #include "SFML/System.hpp"
 #include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
-#include "SFML/Audio.hpp"
-#include "SFML/Network.hpp"
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER = 1, BTN_ACTIVE = 2};
 

@@ -1,7 +1,7 @@
 #pragma once
 #include "State.h"
-#include "Button.h"
-#include "Label.h"
+#include "../GUI/Button.h"
+#include "../GUI/Label.h"
 
 class GameState : public State
 {

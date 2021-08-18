@@ -30,7 +30,7 @@ constexpr auto ENGINE_ICON = "Resources/Images/boiler_icon.png";
 constexpr auto ENGINE_FONT = "Fonts/Roboto.ttf";
 
 //Logging
-void DebugLog(std::string log_msg)
+inline void DebugLog(std::string log_msg)
 {
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;
@@ -40,7 +40,7 @@ void DebugLog(std::string log_msg)
 	file.close();
 }
 
-void DebugLog(char log_msg)
+inline void DebugLog(char log_msg)
 {
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;
@@ -50,7 +50,7 @@ void DebugLog(char log_msg)
 	file.close();
 }
 
-void DebugLog(float log_msg)
+inline void DebugLog(float log_msg)
 {
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;
@@ -60,7 +60,7 @@ void DebugLog(float log_msg)
 	file.close();
 }
 
-void DebugLog(double log_msg)
+inline void DebugLog(double log_msg)
 {
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;
@@ -70,7 +70,7 @@ void DebugLog(double log_msg)
 	file.close();
 }
 
-void DebugLog(int log_msg)
+inline void DebugLog(int log_msg)
 {
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;

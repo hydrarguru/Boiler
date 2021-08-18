@@ -1,5 +1,5 @@
 #pragma once
-#include "MovementComponent.h"
+#include "../Components/MovementComponent.h"
 
 
 class Entity
