@@ -63,7 +63,6 @@
     <ClCompile Include="src\States\State.cpp">
       <Filter>States</Filter>
     </ClCompile>
-    <ClCompile Include="unused_code.cpp" />
     <ClCompile Include="src\GUI\Label.cpp">
       <Filter>GUI</Filter>
     </ClCompile>

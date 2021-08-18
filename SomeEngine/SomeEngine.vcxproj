@@ -158,7 +158,6 @@
     <ClCompile Include="src\Entity\Player.cpp" />
     <ClCompile Include="src\States\State.cpp" />
     <ClCompile Include="src\States\GameState.cpp" />
-    <ClCompile Include="unused_code.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Core\boiler.h" />
