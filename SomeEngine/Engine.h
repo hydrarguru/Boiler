@@ -46,6 +46,7 @@ public:
 
 	//Functions
 	void ExitApplication();
+	void ClearLog();
 
 	//Update
 	void UpdateDt();

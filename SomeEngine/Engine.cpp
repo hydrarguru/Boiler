@@ -38,6 +38,12 @@ bool Engine::GenerateKeyConfig()
 
 bool Engine::Configure()
 {
+	if (!std::filesystem::exists("log_file.txt")) /* Creates log file */
+	{
+		DebugLog("log_file.txt does not exist, creating file now");
+		std::ofstream{ "log_file.txt" };
+	}
+
 	mINI::INIFile config("config/engine.ini");
 	mINI::INIStructure ini;
 	if (!config.read(ini))
@@ -198,7 +204,15 @@ void Engine::Run()
 	ImGui::SFML::Shutdown();
 }
 
+void Engine::ClearLog()
+{
+	std::ofstream log;
+	log.open("log_file.txt", std::ofstream::trunc);
+	log.close();
+}
+
 void Engine::ExitApplication()
 {
 	DebugLog("Engine::BOILER_SHUTDOWN");
+	ClearLog();
 }
