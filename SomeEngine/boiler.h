@@ -30,9 +30,48 @@ constexpr auto ENGINE_ICON = "Resources/Images/boiler_icon.png";
 constexpr auto ENGINE_FONT = "Fonts/Roboto.ttf";
 
 //Logging
-inline void DebugLog(std::string log_msg) 
+void DebugLog(std::string log_msg)
 {
-	//auto time = std::chrono::zoned_time{ std::chrono::current_zone(), std::chrono::system_clock::now() };
+	auto time = std::chrono::system_clock::now();
+	std::cout << log_msg << std::endl;
+	std::ofstream file;
+	file.open("log_file.txt", std::ios::app);
+	file  << "Time: " << time << " Log: " << log_msg << "\n";
+	file.close();
+}
+
+void DebugLog(char log_msg)
+{
+	auto time = std::chrono::system_clock::now();
+	std::cout << log_msg << std::endl;
+	std::ofstream file;
+	file.open("log_file.txt", std::ios::app);
+	file << "Time: " << time << " Log: " << log_msg << "\n";
+	file.close();
+}
+
+void DebugLog(float log_msg)
+{
+	auto time = std::chrono::system_clock::now();
+	std::cout << log_msg << std::endl;
+	std::ofstream file;
+	file.open("log_file.txt", std::ios::app);
+	file  << "Time: " << time << " Log: " << log_msg << "\n";
+	file.close();
+}
+
+void DebugLog(double log_msg)
+{
+	auto time = std::chrono::system_clock::now();
+	std::cout << log_msg << std::endl;
+	std::ofstream file;
+	file.open("log_file.txt", std::ios::app);
+	file << "Time: " << time << " Log: " << log_msg << "\n";
+	file.close();
+}
+
+void DebugLog(int log_msg)
+{
 	auto time = std::chrono::system_clock::now();
 	std::cout << log_msg << std::endl;
 	std::ofstream file;
