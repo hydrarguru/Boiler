@@ -3,7 +3,7 @@
 bool Engine::GenerateEngineConfig()
 {
 	mINI::INIFile file("config/engine.ini");
-	std::cout << "Could not load config. Generating new config." << std::endl;
+	DebugLog("Could not load config. Generating new config.");
 	mINI::INIFile config("engine.ini");
 	mINI::INIStructure ini;
 	ini["ENGINE"]["window_name"] = "Boiler";
@@ -22,7 +22,7 @@ bool Engine::GenerateEngineConfig()
 bool Engine::GenerateKeyConfig()
 {
 	mINI::INIFile file("config/keys.ini");
-	std::cout << "Could not load key config. Generating new key config." << std::endl;
+	DebugLog("Could not load key config. Generating new key config.");
 	mINI::INIFile config("keys.ini");
 	mINI::INIStructure ini;
 	ini["GAME"]["A"] = "0";
@@ -44,9 +44,10 @@ bool Engine::Configure()
 		GenerateEngineConfig();
 	else
 	{
-		std::cout << "Engine::LOADED_CONFIG" << std::endl;
+		DebugLog("Engine::LOADED_CONFIG");
 		return true;
 	}
+	return false;
 }
 
 void Engine::InitWindow()
@@ -109,7 +110,7 @@ void Engine::InitKeybinds()
 	this->supportedKeys["MOVE_RIGHT"] = std::stoi(ini["GAME"]["D"]);
 	this->supportedKeys["MOVE_UP"] = std::stoi(ini["GAME"]["W"]);
 	this->supportedKeys["MOVE_DOWN"] = std::stoi(ini["GAME"]["S"]);
-	std::cout << "Engine::LOADED_KEYBINDINGS" << std::endl;
+	DebugLog("Engine::LOADED_KEYBINDINGS");
 }
 
 void Engine::InitState()
@@ -173,7 +174,7 @@ void Engine::Update()
 	}
 	else
 	{
-		this->endApp();
+		this->ExitApplication();
 		this->window->close();
 	}
 }
@@ -197,7 +198,7 @@ void Engine::Run()
 	ImGui::SFML::Shutdown();
 }
 
-void Engine::endApp()
+void Engine::ExitApplication()
 {
-	std::cout << "Engine::BOILER_SHUTDOWN" << std::endl;
+	DebugLog("Engine::BOILER_SHUTDOWN");
 }

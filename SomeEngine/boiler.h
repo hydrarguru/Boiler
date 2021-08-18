@@ -26,3 +26,6 @@
 //Resource defines:
 constexpr auto ENGINE_ICON = "Resources/Images/boiler_icon.png";
 constexpr auto ENGINE_FONT = "Fonts/Roboto.ttf";
+
+//Logging
+#define DebugLog(x) std::cout << x << std::endl

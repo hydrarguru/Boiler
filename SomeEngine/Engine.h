@@ -45,7 +45,7 @@ public:
 
 
 	//Functions
-	void endApp();
+	void ExitApplication();
 
 	//Update
 	void UpdateDt();
