@@ -93,6 +93,16 @@ void Engine::InitWindow()
 void Engine::InitImGui()
 {
 	ImGui::SFML::Init(*this->window);
+	ImGuiIO io = ImGui::GetIO();
+	if (std::filesystem::exists(ENGINE_FONT))
+	{
+		io.Fonts->Clear();
+		io.Fonts->AddFontFromFileTTF(ENGINE_FONT, 16.f);
+		ImGui::SFML::UpdateFontTexture();
+	}
+	else
+		io.Fonts->AddFontDefault(); //loads default imgui font if custom font doesn't exist.
+
 	this->window->resetGLStates();	
 }
 
