@@ -86,7 +86,7 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\Fork\Boiler\SomeEngine\include\ImGuiSFML;D:\Fork\Boiler\SomeEngine\include\ImGui;$(ProjectDir);include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Fork\Boiler\SomeEngine\include\ImGui;D:\Fork\Boiler\SomeEngine\include\ImGuiSFML;$(ProjectDir);include</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <LanguageStandard>stdcpplatest</LanguageStandard>
     </ClCompile>

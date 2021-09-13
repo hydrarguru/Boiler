@@ -1,7 +1,0 @@
-{
-  "files.exclude": {
-    "SomeEngine.vcxproj": true,
-    "SomeEngine.vcxproj.filters": true,
-    "SomeEngine.vcxproj.user": true
-  }
-}
