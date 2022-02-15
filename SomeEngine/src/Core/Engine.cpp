@@ -1,14 +1,4 @@
 #include "Engine.h"
-template<typename T>
-void DebugLog(T log_msg)
-{
-    auto time = std::chrono::system_clock::now();
-	std::cout << log_msg << std::endl;
-	std::ofstream file;
-	file.open("log_file.txt", std::ios::app);
-	file  << "Time: " << time << " Log: " << log_msg << "\n";
-	file.close();
-};
 
 
 bool Engine::GenerateEngineConfig()
