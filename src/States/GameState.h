@@ -21,7 +21,6 @@ private:
 	void InitPlayer();
 
 	//State Functions
-	void InitBackground();
 	void InitFont();
 	void InitImgui();
 	void InitGUI();

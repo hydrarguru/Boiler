@@ -5,7 +5,6 @@ GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* suppo
 {
 	DebugLog("Entered GameState");
 	this->InitFont();
-	this->InitBackground();
 	this->InitPlayer();
 	this->InitGUI();
 }
@@ -17,13 +16,8 @@ GameState::~GameState()
 
 void GameState::InitPlayer()
 {
-	player = new Player(150.f, 150.f, 20, 20);
-}
-
-void GameState::InitBackground()
-{
-	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
-	this->background.setFillColor(sf::Color::Black);
+	this->textures["Player_Idle"].loadFromFile("images/Skeleton1.png");
+	this->player = new Player(&textures["Player_Idle"], 400, 600);
 }
 
 void GameState::InitFont()
@@ -92,17 +86,16 @@ void GameState::Update(const float& dt)
 	ImGui::SFML::Update(*this->window, dtClock.restart());
 	this->UpdateMousePosition();
 	this->UpdateInput(dt);
-	//this->player->Update(dt);
+	this->player->Update(dt);
 	this->UpdateButtonEvent();
 }
-
 
 void GameState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
 	target->draw(this->background);
-	//this->player->Render(target);
+	this->player->Render(target);
 	this->RenderGUI(target);
 	RenderImgui();
 }

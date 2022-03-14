@@ -58,6 +58,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
 # We want the to copy from permanent folder "res" to temporary folder "build"
 configure_file(res/fonts/OpenSans-Regular.ttf fonts/OpenSans-Regular.ttf COPYONLY)
 configure_file(res/fonts/Roboto.ttf fonts/Roboto.ttf COPYONLY)
+configure_file(res/images/Skeleton1.png images/Skeleton1.png COPYONLY)
 
 # Set "a" to be the output filename, does not really matter, shorter is quicker to type...
 set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "engine")
