@@ -18,11 +18,15 @@
 #include <SFML/Audio.hpp>
 #include <SFML/Network.hpp>
 
+//ImGui
+//#include <imgui-SFML.h>
+//#include <imgui.h>
+
 //mINI
-#include "ini.h"
+#include "mini.h"
 
 //Resource defines:
-constexpr auto ENGINE_FONT = "OpenSans-Regular.ttf";
+constexpr auto ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
 
 
 

@@ -1,9 +1,5 @@
 #pragma once
-#include "base.h"
-#include "State/State.h"
-#include "State/GameState.h"
-#include "GUI/Button.h"
-#include "GUI/Label.h"
+#include "../States/MainMenuState.h"
 
 class Engine
 {
@@ -11,17 +7,29 @@ private:
 	/*Variables*/
 	sf::RenderWindow* window;
 	sf::Event sfEvent;
+
+	std::string windowTitle = "Boiler";
+	int window_height = 1920;
+	int window_width = 1080;
+	unsigned framerate = 144;
+
+
+	std::vector<sf::VideoMode> videoModes;
+	sf::ContextSettings windowSettings;
 	sf::Clock dtClock;
 	float dt;
 	std::stack<State*> states;
-	std::map<int, Button*> buttons;
-	std::map<int, Label*> labels;
-	sf::Font font;
+	std::map<std::string, int> supportedKeys;
 
 
 	/*Init*/
+
+	//void InitImGui();
+	void InitVariables();
 	void InitWindow();
 	void InitState();
+
+	/*Configs*/
 
 public:
 	//Constructor - Destructor

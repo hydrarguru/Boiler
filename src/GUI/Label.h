@@ -43,3 +43,4 @@ public:
 	//Functions
 	void Render(sf::RenderTarget* target);
 };
+

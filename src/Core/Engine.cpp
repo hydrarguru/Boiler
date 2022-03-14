@@ -2,79 +2,111 @@
 
 void Engine::InitWindow()
 {
-	window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "asdasd", sf::Style::Resize);
-	font.loadFromFile("OpenSans-Regular.ttf");
-	buttons[1] = new Button(100.f, 100.f, 100.f, 50.f, &font, "Hello!", sf::Color::Blue, sf::Color::Green, sf::Color::Yellow);
-	labels[1] = new Label(200, 300, "Label", &font, 50);
+	this->window = new sf::RenderWindow(sf::VideoMode(window_height, window_width), windowTitle, sf::Style::Resize);
+	this->window->setFramerateLimit(framerate);
+}
+
+/*
+void Engine::InitImGui()
+{
+	ImGui::SFML::Init(*this->window);
+	ImGuiIO io = ImGui::GetIO();
+	ImGuiContext* ctx = ImGui::GetCurrentContext();
+	ImGui::SetCurrentContext(ctx);
+	if (std::filesystem::exists(ENGINE_FONT))
+	{
+		io.Fonts->Clear();
+		io.Fonts->AddFontFromFileTTF(ENGINE_FONT, 16.f);
+		ImGui::SFML::UpdateFontTexture();
+	}
+	else
+		io.Fonts->AddFontDefault(); //loads default imgui font if custom font doesn't exist.
+
+	this->window->resetGLStates();	
+}
+*/
+
+void Engine::InitVariables()
+{
+	this->window = nullptr;
+	this->dt = 0;
 }
 
 void Engine::InitState()
 {
-	DebugLog("Init State");
-	states.push(new GameState(window, &states));
+	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
 Engine::Engine()
 {
-	InitWindow();
-	//InitState();
+	this->InitWindow();
+	//this->InitImGui();
+	this->InitState();
 }
 
 Engine::~Engine()
 {
-	delete window;
-	while (!states.empty())
+	delete this->window;
+	while (!this->states.empty())
 	{
-		states.pop();
+		delete this->states.top();
+		this->states.pop();
 	}
 }
 
 /*Functions*/
 void Engine::UpdateDt()
 {
-	dt = dtClock.restart().asSeconds();
+	this->dt = this->dtClock.restart().asSeconds();
 }
 
 void Engine::UpdateSFMLEvents()
 {
-	while (window->pollEvent(sfEvent))
-	{		
-		if (sfEvent.type == sf::Event::Closed)	
+	while (this->window->pollEvent(sfEvent)) 
+	{
+		//ImGui::SFML::ProcessEvent(sfEvent);
+		if (sfEvent.type == sf::Event::Closed)
 		{
-			window->close();
+			this->window->close();
 		}
 	}
 }
 
 void Engine::Update()
 {
-	UpdateSFMLEvents();
-	//buttons[1]->Update(mouseposview);
-	if (!states.empty()) /*Updates state*/
+	this->UpdateSFMLEvents();
+	if (!this->states.empty())
 	{
-		states.top()->Update(dt);
-		if (states.top()->GetQuit())
+		this->states.top()->Update(this->dt);
+
+		if (this->states.top()->GetQuit())
 		{
-			states.top()->EndState();
-			states.pop();
+			this->states.top()->EndState();
+			delete this->states.top();
+			this->states.pop();
 		}
+	}
+	else
+	{
+		this->window->close();
 	}
 }
 
 void Engine::Render()
 {
-	window->clear(sf::Color::Black);
-	buttons[1]->Render(window);
-	labels[1]->Render(window);
-	window->display();
+	this->window->clear(sf::Color::Black);
+	if (!this->states.empty())
+		this->states.top()->Render(window);
+	this->window->display();
 }
 
 void Engine::Run()
 {
-	while (window->isOpen())
+	while (this->window->isOpen())
 	{
-		UpdateDt();
-		Update();
-		Render();
+		this->UpdateDt();
+		this->Update();
+		this->Render();
 	}
+	//ImGui::SFML::Shutdown();
 }

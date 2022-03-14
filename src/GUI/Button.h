@@ -4,7 +4,9 @@
 #include <ctime>
 #include <cstdlib>
 
-#include "Core/base.h"
+#include "SFML/System.hpp"
+#include "SFML/Window.hpp"
+#include "SFML/Graphics.hpp"
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER = 1, BTN_ACTIVE = 2};
 
@@ -40,3 +42,4 @@ public:
 	void Update(const sf::Vector2f mousePos);
 	void Render(sf::RenderTarget* target);
 };
+
