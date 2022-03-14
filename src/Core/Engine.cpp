@@ -40,7 +40,6 @@ void Engine::InitState()
 Engine::Engine()
 {
 	this->InitWindow();
-	//this->InitImGui();
 	this->InitState();
 }
 
@@ -49,7 +48,7 @@ Engine::~Engine()
 	delete this->window;
 	while (!this->states.empty())
 	{
-		delete this->states.top();
+		//delete this->states.top();
 		this->states.pop();
 	}
 }
@@ -64,7 +63,6 @@ void Engine::UpdateSFMLEvents()
 {
 	while (this->window->pollEvent(sfEvent)) 
 	{
-		//ImGui::SFML::ProcessEvent(sfEvent);
 		if (sfEvent.type == sf::Event::Closed)
 		{
 			this->window->close();
@@ -82,7 +80,7 @@ void Engine::Update()
 		if (this->states.top()->GetQuit())
 		{
 			this->states.top()->EndState();
-			delete this->states.top();
+			//delete this->states.top();
 			this->states.pop();
 		}
 	}
@@ -108,5 +106,4 @@ void Engine::Run()
 		this->Update();
 		this->Render();
 	}
-	//ImGui::SFML::Shutdown();
 }

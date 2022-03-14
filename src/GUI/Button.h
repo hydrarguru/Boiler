@@ -1,11 +1,5 @@
 #pragma once
 #include <iostream>
-#include <sstream>
-#include <ctime>
-#include <cstdlib>
-
-#include "SFML/System.hpp"
-#include "SFML/Window.hpp"
 #include "SFML/Graphics.hpp"
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER = 1, BTN_ACTIVE = 2};
@@ -35,7 +29,7 @@ public:
 	~Button();
 
 	//Accessors
-	const bool IsPressed() const;
+	bool IsPressed();
 
 
 	//Functions

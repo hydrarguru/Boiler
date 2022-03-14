@@ -58,6 +58,7 @@ void MainMenuState::InitGUI()
 
 void MainMenuState::UpdateInput(const float& dt)
 {
+	/*handling inputs and stuff*/
 }
 
 void MainMenuState::UpdateButtons()

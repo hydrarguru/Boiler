@@ -1,7 +1,8 @@
 #pragma once
 #include "State.h"
-#include "../GUI/Button.h"
-#include "../GUI/Label.h"
+#include "Entity/Player.h"
+#include "GUI/Button.h"
+#include "GUI/Label.h"
 
 class GameState : public State
 {
@@ -20,7 +21,6 @@ private:
 	void InitPlayer();
 
 	void InitFonts();
-	//void InitImGui();
 	void InitVariables();
 	void InitGUI();
 public:
@@ -28,7 +28,6 @@ public:
 	virtual ~GameState();
 
 	/*Functions*/
-	//void RenderImGui(sf::RenderTarget* target);
 	void UpdateInput(const float& dt);
 	void UpdateButtons();
 	void Update(const float& dt);

@@ -1,5 +1,7 @@
 #pragma once
-#include "../States/MainMenuState.h"
+#include "Core/boiler.h"
+#include "States/State.h"
+#include "States/MainMenuState.h"
 
 class Engine
 {
