@@ -27,7 +27,6 @@ Button::Button(
 	this->hoverColor = hoverColor;
 	this->activeColor = activeColor;
 	this->buttonShape.setFillColor(this->idleColor);
-	std::cout << "hello" << std::endl;
 }
 
 Button::~Button()
@@ -46,8 +45,6 @@ const bool Button::IsPressed() const
 void Button::Update(const sf::Vector2f mousePos)
 {
 	this->buttonState = BTN_IDLE; //Idle State
-
-
 	if (this->buttonShape.getGlobalBounds().contains(mousePos))	//Hover State
 	{
 		this->buttonState = BTN_HOVER;
@@ -71,11 +68,10 @@ void Button::Update(const sf::Vector2f mousePos)
 		this->buttonShape.setFillColor(sf::Color::Red);
 		break;
 	}
-
 }
 
 void Button::Render(sf::RenderTarget* target)
 {
-	target->draw(buttonShape);
-	target->draw(buttonText);
+	target->draw(this->buttonShape);
+	target->draw(this->buttonText);
 }

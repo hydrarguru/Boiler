@@ -2,6 +2,8 @@
 #include "base.h"
 #include "State/State.h"
 #include "State/GameState.h"
+#include "GUI/Button.h"
+#include "GUI/Label.h"
 
 class Engine
 {
@@ -12,7 +14,9 @@ private:
 	sf::Clock dtClock;
 	float dt;
 	std::stack<State*> states;
-
+	std::map<int, Button*> buttons;
+	std::map<int, Label*> labels;
+	sf::Font font;
 
 
 	/*Init*/

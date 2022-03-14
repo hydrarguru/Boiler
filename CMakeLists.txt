@@ -33,6 +33,7 @@ set(SOURCES src/main.cpp
     src/State/State.cpp
     src/State/GameState.cpp
     src/GUI/Button.cpp
+    src/GUI/Label.cpp
     )
 # folder with .h files, e.g. include/
 include_directories(src)
@@ -54,4 +55,4 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ImGui-SFML::ImGui-SFML)
 configure_file(res/OpenSans-Regular.ttf OpenSans-Regular.ttf COPYONLY)
 
 # Set "a" to be the output filename, does not really matter, shorter is quicker to type...
-set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "a")
+set_target_properties(${PROJECT_NAME} PROPERTIES OUTPUT_NAME "engine")

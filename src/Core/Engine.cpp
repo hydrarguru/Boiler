@@ -3,17 +3,21 @@
 void Engine::InitWindow()
 {
 	window = new sf::RenderWindow(sf::VideoMode(1920, 1080), "asdasd", sf::Style::Resize);
+	font.loadFromFile("OpenSans-Regular.ttf");
+	buttons[1] = new Button(100.f, 100.f, 100.f, 50.f, &font, "Hello!", sf::Color::Blue, sf::Color::Green, sf::Color::Yellow);
+	labels[1] = new Label(200, 300, "Label", &font, 50);
 }
 
 void Engine::InitState()
 {
+	DebugLog("Init State");
 	states.push(new GameState(window, &states));
 }
 
 Engine::Engine()
 {
 	InitWindow();
-	InitState();
+	//InitState();
 }
 
 Engine::~Engine()
@@ -21,7 +25,6 @@ Engine::~Engine()
 	delete window;
 	while (!states.empty())
 	{
-		// delete states.top();
 		states.pop();
 	}
 }
@@ -35,8 +38,8 @@ void Engine::UpdateDt()
 void Engine::UpdateSFMLEvents()
 {
 	while (window->pollEvent(sfEvent))
-	{
-		if (sfEvent.type == sf::Event::Closed)
+	{		
+		if (sfEvent.type == sf::Event::Closed)	
 		{
 			window->close();
 		}
@@ -46,25 +49,23 @@ void Engine::UpdateSFMLEvents()
 void Engine::Update()
 {
 	UpdateSFMLEvents();
-	if (!states.empty())
+	//buttons[1]->Update(mouseposview);
+	if (!states.empty()) /*Updates state*/
 	{
 		states.top()->Update(dt);
 		if (states.top()->GetQuit())
 		{
 			states.top()->EndState();
-			// delete states.top();
 			states.pop();
 		}
-	}
-	else
-	{
-		window->close();
 	}
 }
 
 void Engine::Render()
 {
 	window->clear(sf::Color::Black);
+	buttons[1]->Render(window);
+	labels[1]->Render(window);
 	window->display();
 }
 

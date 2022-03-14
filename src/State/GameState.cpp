@@ -9,15 +9,15 @@ GameState::GameState(sf::RenderWindow* window, std::stack<State*>* states) : Sta
 
 GameState::~GameState()
 {
-	delete &this->textures;
+	//delete &this->textures;
 }
+
 
 void GameState::InitGUI()
 {
-	button1 = new Button(500, 200, 125, 50,
-		&this->font, "Main Menu",
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
+	buttonList[1] = new Button(100.f, 100.f, 100.f, 50.f, &font, "Hello!", sf::Color::Blue, sf::Color::Green, sf::Color::Yellow);
 }
+
 
 void GameState::InitTextures()
 {
@@ -59,14 +59,14 @@ void GameState::Update(const float& dt)
 
 void GameState::RenderGUI(sf::RenderTarget* target)
 {
-	//button1->Render(target);
+	buttonList[1]->Render(target);
 }
+
 
 void GameState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = window;
 	//this->player->Render(target);
-	button1->Render(target);
 	RenderGUI(target);
 }

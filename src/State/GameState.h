@@ -1,5 +1,6 @@
 #pragma once
 #include "State.h"
+#include "GUI/Button.h"
 
 class GameState : public State
 {
@@ -7,7 +8,7 @@ private:
 	//Variables
 	sf::Clock dtClock;
 	sf::Font font;
-	Button* button1;
+	std::map<int, Button*> buttonList;
 
 	//Functions
 	void InitTextures();

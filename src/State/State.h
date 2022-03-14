@@ -1,7 +1,5 @@
 #pragma once
 #include "Core/base.h"
-#include "GUI/Button.h"
-//#include "GUI/Label.h"
 
 class State
 {

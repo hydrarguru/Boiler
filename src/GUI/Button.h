@@ -1,6 +1,10 @@
 #pragma once
 #include <iostream>
-#include <SFML/Graphics.hpp>
+#include <sstream>
+#include <ctime>
+#include <cstdlib>
+
+#include "Core/base.h"
 
 enum button_states{BTN_IDLE = 0, BTN_HOVER = 1, BTN_ACTIVE = 2};
 
@@ -8,7 +12,7 @@ class Button
 {
 private:
 	short unsigned buttonState;
-	
+
 	sf::RectangleShape buttonShape;
 	sf::Font* buttonfont;
 	sf::Text buttonText;
@@ -30,6 +34,7 @@ public:
 
 	//Accessors
 	const bool IsPressed() const;
+
 
 	//Functions
 	void Update(const sf::Vector2f mousePos);
