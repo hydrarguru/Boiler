@@ -1,100 +1,84 @@
-#include "GameState.h"
-#include "MainMenuState.h"
+﻿#include "GameState.h"
 
-GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states) : State(window, supportedKeys, states)
+GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
+	: State(window, supportedKeys, states)
 {
-	this->InitFonts();
-	this->InitTextures();
+	DebugLog("Entered GameState");
+	this->InitFont();
+	this->InitBackground();
 	this->InitPlayer();
 	this->InitGUI();
 }
 
 GameState::~GameState()
 {
-	//delete this->player;
-	//delete &this->textures;
-}
 
-void GameState::InitGUI()
-{
-	#pragma region Buttons
-	buttonList[1] = new Button(925, 10, 125, 50,
-		&this->font, "Main Menu",
-		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	#pragma endregion
-}
-
-void GameState::InitTextures()
-{
-	DebugLog("GameState::InitTextures");
-	//this->textures["PLAYER_IDLE"].loadFromFile("Resources/Images/Skeleton_Idle.png");
 }
 
 void GameState::InitPlayer()
 {
-	//this->player = new Player(&this->textures["PLAYER_IDLE"], 10, 10);
-	//this->player = new Player(50, 50, 10, 10);
+	player = new Player(150.f, 150.f, 20, 20);
 }
 
-void GameState::InitFonts()
+void GameState::InitBackground()
 {
-	if (!this->font.loadFromFile(ENGINE_FONT)){	std::cout << "ERROR::GameState::COULD NOT LOAD FONT" << std::endl; }
-	else
-		std::cout << "GameState::LOADED_FONT" << std::endl;
+	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
+	this->background.setFillColor(sf::Color::Black);
+}
+
+void GameState::InitFont()
+{
+	if (this->font.loadFromFile(ENGINE_FONT)) { DebugLog("GameState::Loaded Fonts"); }
+}
+
+void GameState::InitGUI()
+{
+	buttonList[1] = new Button(1000, 90, 100, 50, &font, "Hey", sf::Color(25, 50, 125, 255), sf::Color(70, 70, 70, 200),sf::Color(20, 20, 20, 200));
+	buttonList[2] = new Button(1200, 90, 100, 50, &font, "From", sf::Color(25, 50, 125, 255), sf::Color(70, 70, 70, 200),sf::Color(20, 20, 20, 200));
+	buttonList[3] = new Button(1400, 90, 100, 50, &font, "Gamestate", sf::Color(25, 50, 125, 255), sf::Color(70, 70, 70, 200),sf::Color(20, 20, 20, 200));
 }
 
 void GameState::UpdateInput(const float& dt)
 {
-	//Update Player Input
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_LEFT"))))
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::A)))
 		this->player->Move(dt, -1.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_RIGHT"))))
-		this->player->Move(dt, 1.f, 0.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_UP"))))
-		this->player->Move(dt, 0.f, -1.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("MOVE_DOWN"))))
-		this->player->Move(dt, 0.f, 1.f);
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(this->keybinds.at("CLOSE"))))
-		this->EndState();
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::D)))
+		this->player->Move(dt, -1.f, 0.f);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::W)))
+		this->player->Move(dt, -1.f, 0.f);
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::S)))
+		this->player->Move(dt, -1.f, 0.f);
 }
 
-void GameState::UpdateButtons()
+void GameState::UpdateButtonEvent()
 {
-	for (auto& it : this->buttonList)
+	for (auto& button : buttonList)
 	{
-		it.second->Update(this->mousePosView);
+		button.second->Update(this->mousePosView);
 	}
-	if (this->buttonList[1]->IsPressed())
-	{
-		this->quit = true; //End GameState and goes back to MainMenuState
-	}
-}
-
-void GameState::Update(const float& dt)
-{
-	this->UpdateMousePosition();
-	this->UpdateInput(dt);
-	this->player->Update(dt);
-	//ImGui::SFML::Update(*this->window, dtClock.restart());
-	this->UpdateButtons();
 }
 
 void GameState::RenderGUI(sf::RenderTarget* target)
 {
-	#pragma region Buttons
-	for (auto& it : this->buttonList)
-	{
-		it.second->Render(target);
-	}
-	#pragma endregion
+	for (auto& button : this->buttonList) { button.second->Render(target); }
+	
 }
+
+void GameState::Update(const float& dt)
+{
+	//ImGui::SFML::Update(*this->window, dtClock.restart());
+	this->UpdateMousePosition();
+	this->UpdateInput(dt);
+	//this->player->Update(dt);
+	this->UpdateButtonEvent();
+}
+
 
 void GameState::Render(sf::RenderTarget* target)
 {
 	if (!target)
 		target = this->window;
-	this->player->Render(target);
-	RenderGUI(target);
-	//RenderImGui(target);
+	target->draw(this->background);
+	//this->player->Render(target);
+	this->RenderGUI(target);
 }
-

@@ -3,6 +3,7 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
+	DebugLog("Entered GameState");
 	this->InitFont();
 	this->InitBackground();
 	this->InitGUI();
@@ -21,9 +22,6 @@ void MainMenuState::InitBackground()
 {
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));
 	this->background.setFillColor(sf::Color::Black);
-	color[0] = background.getFillColor().r;
-	color[1] = background.getFillColor().g;
-	color[2] = background.getFillColor().b;
 }
 
 void MainMenuState::InitFont()
@@ -49,10 +47,6 @@ void MainMenuState::InitGUI()
 	this->buttons["EXIT_STATE"] = new Button(10, 170, 200, 75,
 		&this->font, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
-	#pragma endregion
-	#pragma region Labels
-	//this->labels["MainMenu"] = new Label(700, 10, "Main Menu", &this->font, 72, WHITE, BLACK);
-	//this->labels["test"] = new Label(690, 150, "test", &this->font, 64, sf::Color::Cyan, BLACK);
 	#pragma endregion
 }
 

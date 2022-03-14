@@ -23,10 +23,11 @@ Player::Player(sf::Texture* texture, float x, float y)
 
 Player::Player(float sizeX, float sizeY, float posX, float posY)
 {
-	sf::RectangleShape rect;
-	rect.setSize(sf::Vector2f(sizeX, sizeY));
+	
 	this->InitVariables();
 	this->InitComponents();
+	m_shape.setSize(sf::Vector2f(sizeX, sizeY));
+	m_shape.setFillColor(sf::Color::White);
 	this->SetPosition(posX, posY);
 }
 

@@ -6,26 +6,6 @@ void Engine::InitWindow()
 	this->window->setFramerateLimit(framerate);
 }
 
-/*
-void Engine::InitImGui()
-{
-	ImGui::SFML::Init(*this->window);
-	ImGuiIO io = ImGui::GetIO();
-	ImGuiContext* ctx = ImGui::GetCurrentContext();
-	ImGui::SetCurrentContext(ctx);
-	if (std::filesystem::exists(ENGINE_FONT))
-	{
-		io.Fonts->Clear();
-		io.Fonts->AddFontFromFileTTF(ENGINE_FONT, 16.f);
-		ImGui::SFML::UpdateFontTexture();
-	}
-	else
-		io.Fonts->AddFontDefault(); //loads default imgui font if custom font doesn't exist.
-
-	this->window->resetGLStates();	
-}
-*/
-
 void Engine::InitVariables()
 {
 	this->window = nullptr;
@@ -39,8 +19,8 @@ void Engine::InitState()
 
 Engine::Engine()
 {
-	this->InitWindow();
-	this->InitState();
+	InitWindow();
+	InitState();
 }
 
 Engine::~Engine()

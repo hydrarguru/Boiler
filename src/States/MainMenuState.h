@@ -1,4 +1,5 @@
 #pragma once
+#include "State.h"
 #include "GameState.h"
 #include "../GUI/Button.h"
 #include "../GUI/Label.h"
@@ -14,8 +15,6 @@ private:
 	std::map<std::string, Label*> labels;
 	sf::Clock dtClock;
 	sf::Color bgColor;
-	float color[3] = { 0.f, 0.f, 0.f };
-	bool SHOW_MENU = true;
 
 	//Functions
 	//void InitImGui();

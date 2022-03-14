@@ -6,6 +6,7 @@ class Player : public Entity
 private:
 	/*Variables*/
 	int playerHealth;
+	sf::RectangleShape m_shape;
 
 	/*Initializer Functions*/
 	void InitVariables();
