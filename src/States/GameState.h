@@ -12,7 +12,7 @@ private:
 	sf::RectangleShape background;
 	sf::Font font;
 	sf::Color bgColor;
-	//sf::Clock dtClock;
+	sf::Clock dtClock;
 	std::map<int, Button*> buttonList;
 	std::map<int, Label*> labelList;
 	Player* player;
@@ -23,6 +23,7 @@ private:
 	//State Functions
 	void InitBackground();
 	void InitFont();
+	void InitImgui();
 	void InitGUI();
 public:
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
@@ -33,6 +34,7 @@ public:
 	void UpdateButtonEvent();/*Handles updating for all the buttons.*/
 	void Update(const float& dt);
 	void Render(sf::RenderTarget* target);
+	void RenderImgui();
 	void RenderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
 };
 
