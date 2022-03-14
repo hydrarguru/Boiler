@@ -11,13 +11,13 @@ private:
 	sf::Image windowIcon;
 	sf::RectangleShape background;
 	sf::Font font;
-	std::map<std::string, Button*> buttons;
-	std::map<std::string, Label*> labels;
+	std::map<int, Button*> buttonList;
+	std::map<int, Label*> labelList;
 	sf::Clock dtClock;
 	sf::Color bgColor;
 
 	//Functions
-	//void InitImGui();
+	void InitImGui();
 	void InitBackground();
 	void InitFont();
 	void InitGUI();
@@ -27,9 +27,9 @@ public:
 
 	/*Functions*/
 	void UpdateInput(const float& dt);
-	void UpdateButtons();/*Handles updating for all the buttons.*/
+	void UpdateButtonEvent();/*Handles updating for all the buttons.*/
 	void Update(const float& dt);
-	//void RenderImGUI(sf::RenderTarget* target);
+	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);
 	void RenderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
 };

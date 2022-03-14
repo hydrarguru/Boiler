@@ -20,8 +20,8 @@
 #include <SFML/Network.hpp>
 
 //ImGui
-//#include <imgui-SFML.h>
-//#include <imgui.h>
+#include <imgui-SFML.h>
+#include <imgui.h>
 
 //mINI
 #include "mini.h"

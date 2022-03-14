@@ -11,11 +11,7 @@ MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int
 
 MainMenuState::~MainMenuState()
 {
-	auto it = this->buttons.begin();
-	for (it = this->buttons.begin(); it != this->buttons.end(); ++it)
-	{
-		delete it->second;
-	}
+
 }
 
 void MainMenuState::InitBackground()
@@ -36,18 +32,20 @@ void MainMenuState::InitFont()
 void MainMenuState::InitGUI()
 {
 	#pragma region Buttons
-	this->buttons["GAME_STATE"] = new Button(10, 10, 200, 75,
+	buttonList[1] = new Button(10, 10, 200, 75,
 		&this->font, "New Game",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["SETTINGS_STATE"] = new Button(10, 90, 200, 75,
+	buttonList[2] = new Button(10, 90, 200, 75,
 		&this->font, "Settings",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 
-	this->buttons["EXIT_STATE"] = new Button(10, 170, 200, 75,
+	buttonList[3] = new Button(10, 170, 200, 75,
 		&this->font, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	#pragma endregion
+
+
 }
 
 void MainMenuState::UpdateInput(const float& dt)
@@ -55,24 +53,24 @@ void MainMenuState::UpdateInput(const float& dt)
 	/*handling inputs and stuff*/
 }
 
-void MainMenuState::UpdateButtons()
+void MainMenuState::UpdateButtonEvent()
 {
-	for (auto &it : this->buttons)
+	for (auto &button : buttonList)
 	{
-		it.second->Update(this->mousePosView);
+		button.second->Update(this->mousePosView);
 	}
 
-	if (this->buttons["GAME_STATE"]->IsPressed()) //Exit the Application
+	if (this->buttonList[1]->IsPressed()) //Exit the Application
 	{
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 	}
 
-	if (this->buttons["SETTINGS_STATE"]->IsPressed())
+	if (this->buttonList[1]->IsPressed())
 	{
 		//std::cout << "Settings Button" << std::endl;
 	}
 
-	if (this->buttons["EXIT_STATE"]->IsPressed()) //Exit the Application
+	if (this->buttonList[1]->IsPressed()) //Exit the Application
 	{
 		this->EndState();
 	}
@@ -81,16 +79,16 @@ void MainMenuState::UpdateButtons()
 void MainMenuState::RenderGUI(sf::RenderTarget* target)
 {
 	#pragma region Buttons
-	for (auto& it : this->buttons)
+	for (auto& button : this->buttonList)
 	{
-		it.second->Render(target);
+		button.second->Render(target);
 	}
 	#pragma endregion
 
 	#pragma region Labels
-	for (auto& it : this->labels)
+	for (auto& label : this->labelList)
 	{
-		it.second->Render(target);
+		label.second->Render(target);
 	}
 	#pragma endregion
 
@@ -101,9 +99,8 @@ void MainMenuState::Update(const float& dt)
 	//ImGui::SFML::Update(*this->window, dtClock.restart());
 	this->UpdateMousePosition();
 	this->UpdateInput(dt);
-	this->UpdateButtons();
+	this->UpdateButtonEvent();
 }
-
 
 void MainMenuState::Render(sf::RenderTarget* target)
 {
