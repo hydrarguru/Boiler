@@ -1,17 +1,34 @@
 ﻿#include "MainMenuState.h"
 
+
+
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
 	DebugLog("Entered GameState");
 	this->InitFont();
 	this->InitBackground();
+	this->InitImgui();
 	this->InitGUI();
 }
 
 MainMenuState::~MainMenuState()
 {
 
+}
+
+void MainMenuState::InitImgui()
+{
+	ImGui::SFML::Init(*this->window);
+	ImGuiIO io = ImGui::GetIO();
+	if(std::filesystem::exists(ENGINE_FONT_ALT))
+	{
+		io.Fonts->Clear();
+		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 16);
+		ImGui::SFML::UpdateFontTexture();
+	}
+	else
+		io.Fonts->AddFontDefault();
 }
 
 void MainMenuState::InitBackground()
@@ -44,8 +61,6 @@ void MainMenuState::InitGUI()
 		&this->font, "QUIT",
 		sf::Color(70, 70, 70, 200), sf::Color(150, 150, 150, 255), sf::Color(20, 20, 20, 200));
 	#pragma endregion
-
-
 }
 
 void MainMenuState::UpdateInput(const float& dt)
@@ -94,9 +109,18 @@ void MainMenuState::RenderGUI(sf::RenderTarget* target)
 
 }
 
+void MainMenuState::RenderImgui()
+{
+	ImGui::ShowDemoWindow();
+	ImGui::Begin("sdasd");
+	ImGui::Text("asdasd");
+	ImGui::End();
+	ImGui::SFML::Render(*this->window);
+}
+
 void MainMenuState::Update(const float& dt)
 {
-	//ImGui::SFML::Update(*this->window, dtClock.restart());
+	ImGui::SFML::Update(*this->window, dtClock.restart());
 	this->UpdateMousePosition();
 	this->UpdateInput(dt);
 	this->UpdateButtonEvent();
@@ -107,6 +131,6 @@ void MainMenuState::Render(sf::RenderTarget* target)
 	if (!target)
 		target = this->window;
 	target->draw(this->background);
-	this->RenderGUI(target);
-	//this->RenderImGUI(target);
+	RenderGUI(target);
+	RenderImgui(); //ensures imgui windows are rendered on top of of other gui elements.
 }

@@ -17,7 +17,7 @@ private:
 	sf::Color bgColor;
 
 	//Functions
-	void InitImGui();
+	void InitImgui();
 	void InitBackground();
 	void InitFont();
 	void InitGUI();
@@ -29,8 +29,8 @@ public:
 	void UpdateInput(const float& dt);
 	void UpdateButtonEvent();/*Handles updating for all the buttons.*/
 	void Update(const float& dt);
-	void RenderImGUI(sf::RenderTarget* target);
 	void Render(sf::RenderTarget* target);
+	void RenderImgui();
 	void RenderGUI(sf::RenderTarget* target);/*Handles all rendering for the GUI.*/
 };
 

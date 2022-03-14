@@ -28,6 +28,7 @@
 
 //Resource defines:
 constexpr auto ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
+constexpr auto ENGINE_FONT_ALT = "fonts/Roboto.ttf";
 
 
 
