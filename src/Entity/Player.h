@@ -13,7 +13,8 @@ private:
 
 public:
 	Player(sf::Texture* texture, float x, float y);
-	virtual ~Player();
+	Player(float sizeX, float sizeY, float posX, float posY);
+	~Player();
 	/*Functions*/
 	int GetHealth();
 	float GetMovementSpeed();

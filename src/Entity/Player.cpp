@@ -17,9 +17,17 @@ Player::Player(sf::Texture* texture, float x, float y)
 {
 	this->InitVariables();
 	this->InitComponents();
-
 	this->CreateSprite(texture);
 	this->SetPosition(x, y);
+}
+
+Player::Player(float sizeX, float sizeY, float posX, float posY)
+{
+	sf::RectangleShape rect;
+	rect.setSize(sf::Vector2f(sizeX, sizeY));
+	this->InitVariables();
+	this->InitComponents();
+	this->SetPosition(posX, posY);
 }
 
 Player::~Player()

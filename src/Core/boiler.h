@@ -10,6 +10,7 @@
 #include <filesystem>
 #include <chrono>
 #include <map>
+#include <memory>
 
 //SFML
 #include <SFML/System.hpp>

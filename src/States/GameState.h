@@ -10,18 +10,14 @@ private:
 	//Variables
 	Player* player;
 	sf::Clock dtClock;
-
-
-	std::map<std::string, Button*> buttons;
+	std::map<int, Button*> buttonList;
 	sf::Font font;
 
 
 	//Functions
 	void InitTextures();
 	void InitPlayer();
-
 	void InitFonts();
-	void InitVariables();
 	void InitGUI();
 public:
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
