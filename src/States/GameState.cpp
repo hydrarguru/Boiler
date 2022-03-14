@@ -51,11 +51,11 @@ void GameState::UpdateInput(const float& dt)
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::A)))
 		this->player->Move(dt, -1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::D)))
-		this->player->Move(dt, -1.f, 0.f);
+		this->player->Move(dt, 1.f, 0.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::W)))
-		this->player->Move(dt, -1.f, 0.f);
+		this->player->Move(dt, 0.f, -1.f);
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key(sf::Keyboard::S)))
-		this->player->Move(dt, -1.f, 0.f);
+		this->player->Move(dt, 0.f, 1.f);
 }
 
 void GameState::UpdateButtonEvent()
@@ -68,9 +68,17 @@ void GameState::UpdateButtonEvent()
 
 void GameState::RenderImgui()
 {
-	ImGui::ShowDemoWindow();
+	static int pHealth = player->GetHealth();
+	static float pSpeed = player->GetMovementSpeed();
+	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("GameState - Imgui");
-	ImGui::Text("asdasd");
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::Separator();
+	ImGui::PushItemWidth(100.f);
+	ImGui::InputInt("Player Health", &pHealth, 0, 1000);
+	ImGui::SameLine();
+	if (ImGui::Button("Set")) { player->SetPlayerHealth(pHealth); }
+	if (ImGui::InputFloat("Player Speed", &pSpeed, 10.f, 100.f)) { player->SetSpeed(pSpeed); }
 	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }

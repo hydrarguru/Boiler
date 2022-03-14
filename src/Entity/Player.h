@@ -15,8 +15,6 @@ public:
 	virtual ~Player();
 	/*Functions*/
 
-
-
 	/*Getters/Setters*/
 	int GetHealth();
 	float GetMovementSpeed();
