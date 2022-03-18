@@ -9,6 +9,7 @@ private:
 
 	/*Initializer Functions*/
 	void InitVariables();
+	void InitComponents();
 
 public:
 	Player(sf::Texture* texture, float x, float y);
@@ -17,9 +18,9 @@ public:
 
 	/*Getters/Setters*/
 	int GetHealth();
-	float GetMovementSpeed();
-	void SetSpeed(float speed);
 	void SetPlayerHealth(int health);
+	float GetPlayerVeloctity();
+	void SetPlayerVelocity(float velocity);
 };
 
 

@@ -69,16 +69,17 @@ void GameState::UpdateButtonEvent()
 void GameState::RenderImgui()
 {
 	static int pHealth = player->GetHealth();
-	static float pSpeed = player->GetMovementSpeed();
+	//static float pSpeed = player->GetMovementSpeed();
+	static float pVel = player->GetPlayerVeloctity();
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("GameState - Imgui");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::Separator();
 	ImGui::PushItemWidth(100.f);
 	ImGui::InputInt("Player Health", &pHealth, 0, 1000);
-	ImGui::SameLine();
 	if (ImGui::Button("Set")) { player->SetPlayerHealth(pHealth); }
-	if (ImGui::InputFloat("Player Speed", &pSpeed, 10.f, 100.f)) { player->SetSpeed(pSpeed); }
+	ImGui::SameLine();
+	if (ImGui::InputFloat("Player Velocity", &pVel, 10.f, 100.f)) { player->SetPlayerVelocity(pVel); }
 	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }

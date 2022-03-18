@@ -89,7 +89,7 @@ Build easy OpenGL projects with GUI e.g. for algorithm visualisation: <https://w
 2. Open terminal inside of the project
 3. `mkdir build` -  to make "build" directory inside of project folder
 4. `cd ./build` - go inside of "build" folder
-5. `cmake ..` - to link files (On windows use command `cmake .. -G "MinGW Makefiles` if you followed windows prerequisites guide)
+5. `cmake ..` - to link files (On windows use command `cmake .. -G "MinGW Makefiles"` if you followed windows prerequisites guide)
 6. `make` - to build project (On windows use command `mingw32-make.exe` if you followed windows prerequisites guide)
 7. `./a` - to display output
 

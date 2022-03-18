@@ -1,5 +1,6 @@
 #pragma once
 #include "Core/boiler.h"
+#include "Components/MovementComponent.h"
 
 
 class Entity
@@ -11,13 +12,14 @@ protected:
 	sf::Texture* texture;
 	sf::Sprite* sprite;
 
-	float movementSpeed;
+	MovementComponent* movementComponent;
 public:
 	Entity();
 	virtual ~Entity();
 
 	/*Component Functions*/
 	void CreateSprite(sf::Texture* texture);
+	void CreateMovementComponent(float maxVelocity);
 
 	/*Functions*/
 	virtual void SetPosition(const float x, const float y);
