@@ -17,7 +17,8 @@ GameState::~GameState()
 void GameState::InitPlayer()
 {
 	this->textures["Player_Idle"].loadFromFile("images/Skeleton1.png");
-	this->player = new Player(&textures["Player_Idle"], 400, 600);
+	this->textures["Knight_Idle"].loadFromFile("../res/images/Knight/KnightIdle_strip.png");
+	this->player = new Player(&textures["Knight_Idle"], 400, 600);
 }
 
 void GameState::InitFont()

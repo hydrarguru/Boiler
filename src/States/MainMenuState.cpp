@@ -5,7 +5,7 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
-	DebugLog("Entered GameState");
+	DebugLog("Entered MainMenuState");
 	this->InitFont();
 	this->InitBackground();
 	this->InitImgui();
