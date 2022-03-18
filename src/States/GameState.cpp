@@ -70,17 +70,22 @@ void GameState::UpdateButtonEvent()
 void GameState::RenderImgui()
 {
 	static int pHealth = player->GetHealth();
-	//static float pSpeed = player->GetMovementSpeed();
 	static float pVel = player->GetPlayerVeloctity();
+	float vel = 0.f;
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("GameState - Imgui");
 	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
 	ImGui::Separator();
 	ImGui::PushItemWidth(100.f);
 	ImGui::InputInt("Player Health", &pHealth, 0, 1000);
-	if (ImGui::Button("Set")) { player->SetPlayerHealth(pHealth); }
 	ImGui::SameLine();
-	if (ImGui::InputFloat("Player Velocity", &pVel, 10.f, 100.f)) { player->SetPlayerVelocity(pVel); }
+	if (ImGui::Button("Set")) { player->SetPlayerHealth(pHealth); }
+	ImGui::Separator();
+	if (ImGui::InputFloat("Player Velocity", &pVel, 10.f, 100.f)) { vel = pVel; }
+	if (ImGui::Button("Set")) { player->SetPlayerVelocity(vel); }
+	ImGui::Separator();
+
+	if (ImGui::Button("Quit")) { this->quit = true; }
 	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }
@@ -88,7 +93,6 @@ void GameState::RenderImgui()
 void GameState::RenderGUI(sf::RenderTarget* target)
 {
 	for (auto& button : this->buttonList) { button.second->Render(target); }
-	
 }
 
 void GameState::Update(const float& dt)
