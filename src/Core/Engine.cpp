@@ -2,7 +2,6 @@
 
 void Engine::InitWindow()
 {
-	//this->videoMode = sf::VideoMode::getFullscreenModes();
 	sf::VideoMode windowBounds = sf::VideoMode::getDesktopMode();
 
 	if (!std::filesystem::exists(ENGINE_CONFIG))
@@ -46,7 +45,8 @@ void Engine::InitWindow()
 void Engine::InitImGui()
 {
 	ImGui::SFML::Init(*this->window);
-	ImGuiIO io = ImGui::GetIO();
+	ImGuiIO& io = ImGui::GetIO();
+	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	if(std::filesystem::exists(ENGINE_FONT_ALT))
 	{
 		io.Fonts->Clear();
@@ -83,11 +83,10 @@ bool Engine::GenerateConfig()
 		config["Engine"]["w_framerate"] = "60";
 		config["Engine"]["w_antialiasing"] = "4";
 		if (file.generate(config, true))
-			return true;
-		
+			return true;	
 	}
 	else
-		return true;
+		return false;
 }
 
 Engine::Engine()

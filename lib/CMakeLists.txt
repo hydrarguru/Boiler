@@ -11,7 +11,8 @@ add_subdirectory(sfml)
 FetchContent_Declare(
   imgui
   GIT_REPOSITORY https://github.com/ocornut/imgui
-  GIT_TAG 35b1148efb839381b84de9290d9caf0b66ad7d03
+  #GIT_TAG 35b1148efb839381b84de9290d9caf0b66ad7d03
+  GIT_TAG 377b864bb4a9ed9a25674b04f64f63baf221060d #imgui-docking
 )
 
 FetchContent_MakeAvailable(imgui)
