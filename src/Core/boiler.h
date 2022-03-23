@@ -25,10 +25,12 @@
 
 //mINI
 #include "mini.h"
+using namespace mINI;
 
 //Resource defines:
 constexpr auto ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
 constexpr auto ENGINE_FONT_ALT = "fonts/Roboto.ttf";
+constexpr auto ENGINE_CONFIG = "engine.ini";
 
 
 

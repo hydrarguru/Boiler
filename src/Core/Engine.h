@@ -13,10 +13,13 @@ private:
 	std::string windowTitle = "Boiler";
 	int window_height = 1920;
 	int window_width = 1080;
-	unsigned framerate = 144;
+	unsigned framerate = 60;
+	bool vsync;
+	bool fullscreen;
+	unsigned antialiasing;
 
 
-	std::vector<sf::VideoMode> videoModes;
+	//std::vector<sf::VideoMode> videoMode;
 	sf::ContextSettings windowSettings;
 	sf::Clock dtClock;
 	float dt;
@@ -26,12 +29,13 @@ private:
 
 	/*Init*/
 
-	//void InitImGui();
+	void InitImGui();
 	void InitVariables();
 	void InitWindow();
 	void InitState();
 
 	/*Configs*/
+	bool GenerateConfig();
 
 public:
 	//Constructor - Destructor
