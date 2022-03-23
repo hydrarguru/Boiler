@@ -11,7 +11,6 @@ private:
 protected:
 	sf::Texture* texture;
 	sf::Sprite* sprite;
-
 	MovementComponent* movementComponent;
 public:
 	Entity();
@@ -20,6 +19,9 @@ public:
 	/*Component Functions*/
 	void CreateSprite(sf::Texture* texture);
 	void CreateMovementComponent(float maxVelocity);
+
+	void SetSprite(int width, int totalFrames, int frame);
+
 
 	/*Functions*/
 	virtual void SetPosition(const float x, const float y);

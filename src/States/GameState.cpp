@@ -3,7 +3,6 @@
 GameState::GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
-	DebugLog("Entered GameState");
 	this->InitFont();
 	this->InitPlayer();
 	this->InitGUI();
@@ -16,8 +15,13 @@ GameState::~GameState()
 
 void GameState::InitPlayer()
 {
-	this->textures["Player_Idle"].loadFromFile("images/Skeleton1.png");
-	this->textures["Knight_Idle"].loadFromFile("../res/images/Knight/KnightIdle_strip.png");
+	this->textures["Knight_Attack"].loadFromFile("../res/images/Knight/KnightAttack.png");
+	this->textures["Knight_Death"].loadFromFile("../res/images/Knight/KnightDeath.png");
+	this->textures["Knight_Idle"].loadFromFile("../res/images/Knight/KnightIdle.png");
+	this->textures["Knight_JumpFall"].loadFromFile("../res/images/Knight/KnightJumpFall.png");
+	this->textures["Knight_Roll"].loadFromFile("../res/images/Knight/KnightRoll.png");
+	this->textures["Knight_Run"].loadFromFile("../res/images/Knight/KnightRun.png");
+	this->textures["Knight_Shield"].loadFromFile("../res/images/Knight/KnightShield.png");
 	this->player = new Player(&textures["Knight_Idle"], 400, 600);
 }
 
@@ -57,10 +61,11 @@ void GameState::RenderImgui()
 {
 	static int pHealth = player->GetHealth();
 	static float pVel = player->GetPlayerVeloctity();
+	static int spriteFrame = 1;
 	float vel = 0.f;
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("GameState - Imgui");
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / ImGui::GetIO().Framerate, ImGui::GetIO().Framerate);
+	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 	ImGui::Separator();
 	ImGui::PushItemWidth(100.f);
 	ImGui::InputInt("Player Health", &pHealth, 0, 1000);
@@ -70,8 +75,20 @@ void GameState::RenderImgui()
 	if (ImGui::InputFloat("Player Velocity", &pVel, 10.f, 100.f)) { vel = pVel; }
 	if (ImGui::Button("Set")) { player->SetPlayerVelocity(vel); }
 	ImGui::Separator();
-
+	if(ImGui::InputInt("Set Sprite #", &spriteFrame, 1, 1))
+	{
+		player->SetSprite(960, 15, spriteFrame);
+	}
+	if (ImGui::Button("Test Sprite"))
+	{
+		int i = 1;
+		i++;
+		player->SetSprite(960, 15, i);
+	}
+	
+	ImGui::Separator();
 	if (ImGui::Button("Quit")) { this->quit = true; }
+
 	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }

@@ -22,11 +22,20 @@ void Entity::CreateSprite(sf::Texture* texture)
 	this->texture = texture;
 	this->sprite = new sf::Sprite(*this->texture);
 	this->sprite->setTexture(*this->texture);
+	this->sprite->setTextureRect({0, 0, 64, 64});
+	this->sprite->setScale(4.f, 4.f);
 }
 
 void Entity::CreateMovementComponent(float maxVelocity)
 {
 	this->movementComponent = new MovementComponent(maxVelocity);
+}
+
+void Entity::SetSprite(int width, int totalFrames, int frame)
+{
+	int i_frame = width / totalFrames;
+	std::cout << "i_frame: " << i_frame << "\n";
+	this->sprite->setTextureRect({frame * i_frame, 14, 64, 64});
 }
 
 /*Functions*/
