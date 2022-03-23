@@ -5,10 +5,8 @@
 MainMenuState::MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states)
 	: State(window, supportedKeys, states)
 {
-	DebugLog("Entered MainMenuState");
 	this->InitFont();
 	this->InitBackground();
-	this->InitImgui();
 	this->InitGUI();
 }
 
@@ -57,50 +55,27 @@ void MainMenuState::UpdateInput(const float& dt)
 void MainMenuState::UpdateButtonEvent()
 {
 	for (auto &button : buttonList)
-	{
 		button.second->Update(this->mousePosView);
-	}
-
-	if (this->buttonList[1]->IsPressed()) //Exit the Application
-	{
-		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
-	}
 
 	if (this->buttonList[1]->IsPressed())
-	{
-		//std::cout << "Settings Button" << std::endl;
-	}
+		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 
-	if (this->buttonList[1]->IsPressed()) //Exit the Application
-	{
+	if (this->buttonList[3]->IsPressed())
 		this->EndState();
-	}
 }
 
 void MainMenuState::RenderGUI(sf::RenderTarget* target)
 {
-	#pragma region Buttons
 	for (auto& button : this->buttonList)
-	{
 		button.second->Render(target);
-	}
-	#pragma endregion
 
-	#pragma region Labels
 	for (auto& label : this->labelList)
-	{
 		label.second->Render(target);
-	}
-	#pragma endregion
-
 }
 
 void MainMenuState::RenderImgui()
 {
 	ImGui::ShowDemoWindow();
-	ImGui::Begin("sdasd");
-	ImGui::Text("asdasd");
-	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }
 
