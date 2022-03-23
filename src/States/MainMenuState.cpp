@@ -17,20 +17,6 @@ MainMenuState::~MainMenuState()
 
 }
 
-void MainMenuState::InitImgui()
-{
-	ImGui::SFML::Init(*this->window);
-	ImGuiIO io = ImGui::GetIO();
-	if(std::filesystem::exists(ENGINE_FONT_ALT))
-	{
-		io.Fonts->Clear();
-		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 16);
-		ImGui::SFML::UpdateFontTexture();
-	}
-	else
-		io.Fonts->AddFontDefault();
-}
-
 void MainMenuState::InitBackground()
 {
 	this->background.setSize(sf::Vector2f(window->getSize().x, window->getSize().y));

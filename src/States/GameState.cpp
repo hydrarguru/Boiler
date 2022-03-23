@@ -26,20 +26,6 @@ void GameState::InitFont()
 	if (this->font.loadFromFile(ENGINE_FONT)) { DebugLog("GameState::Loaded Fonts"); }
 }
 
-void GameState::InitImgui()
-{
-	ImGui::SFML::Init(*this->window);
-	ImGuiIO io = ImGui::GetIO();
-	if(std::filesystem::exists(ENGINE_FONT_ALT))
-	{
-		io.Fonts->Clear();
-		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 16);
-		ImGui::SFML::UpdateFontTexture();
-	}
-	else
-		io.Fonts->AddFontDefault();
-}
-
 void GameState::InitGUI()
 {
 	buttonList[1] = new Button(1000, 90, 100, 50, &font, "Hey", sf::Color(25, 50, 125, 255), sf::Color(70, 70, 70, 200),sf::Color(20, 20, 20, 200));

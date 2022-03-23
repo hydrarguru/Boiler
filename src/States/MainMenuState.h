@@ -17,7 +17,6 @@ private:
 	sf::Color bgColor;
 
 	//Functions
-	void InitImgui();
 	void InitBackground();
 	void InitFont();
 	void InitGUI();

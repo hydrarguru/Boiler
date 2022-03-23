@@ -22,7 +22,6 @@ private:
 
 	//State Functions
 	void InitFont();
-	void InitImgui();
 	void InitGUI();
 public:
 	GameState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
