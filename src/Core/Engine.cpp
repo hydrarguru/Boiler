@@ -50,7 +50,7 @@ void Engine::InitImGui()
 	if(std::filesystem::exists(ENGINE_FONT_ALT))
 	{
 		io.Fonts->Clear();
-		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 16);
+		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 18.f);
 		ImGui::SFML::UpdateFontTexture();
 	}
 	else
@@ -68,7 +68,7 @@ void Engine::InitState()
 	this->states.push(new MainMenuState(this->window, &this->supportedKeys, &this->states));
 }
 
-bool Engine::GenerateConfig()
+void Engine::GenerateConfig()
 {
 	if (!std::filesystem::exists(ENGINE_CONFIG))
 	{
@@ -82,11 +82,8 @@ bool Engine::GenerateConfig()
 		config["Engine"]["w_fullscreen"] = "0";
 		config["Engine"]["w_framerate"] = "60";
 		config["Engine"]["w_antialiasing"] = "4";
-		if (file.generate(config, true))
-			return true;	
+		file.generate(config, true);
 	}
-	else
-		return false;
 }
 
 Engine::Engine()

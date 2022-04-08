@@ -19,7 +19,6 @@ private:
 	unsigned antialiasing;
 
 
-	//std::vector<sf::VideoMode> videoMode;
 	sf::ContextSettings windowSettings;
 	sf::Clock dtClock;
 	float dt;
@@ -35,7 +34,7 @@ private:
 	void InitState();
 
 	/*Configs*/
-	bool GenerateConfig();
+	void GenerateConfig();
 
 public:
 	//Constructor - Destructor
