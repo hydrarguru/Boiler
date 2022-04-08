@@ -9,13 +9,13 @@ class GameState : public State
 {
 private:
 	//Variables
-	sf::RectangleShape background;
-	sf::Font font;
-	sf::Color bgColor;
-	sf::Clock dtClock;
-	std::map<int, Button*> buttonList;
-	std::map<int, Label*> labelList;
-	Player* player;
+	sf::RectangleShape m_background;
+	sf::Font m_font;
+	sf::Color m_bgColor;
+	sf::Clock m_dtClock;
+	std::map<int, Button*> m_buttonList;
+	std::map<int, Label*> m_labelList;
+	Player* m_player;
 
 	//Functions
 	void InitPlayer();
