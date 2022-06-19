@@ -61,11 +61,11 @@ void GameState::RenderImgui()
 {
 	static int pHealth = m_player->GetHealth();
 	static float pVel = m_player->GetPlayerVeloctity();
-	static int spriteFrame = 1;
+	static int spriteFrame = 0;
 	float vel = 0.f;
 	ImGuiIO& io = ImGui::GetIO();
 	ImGui::Begin("GameState - Imgui");
-	ImGui::Text("Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
+	ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), "Application average %.3f ms/frame (%.1f FPS)", 1000.0f / io.Framerate, io.Framerate);
 	ImGui::Separator();
 	ImGui::PushItemWidth(100.f);
 	ImGui::InputInt("Player Health", &pHealth, 0, 1000);
@@ -79,14 +79,8 @@ void GameState::RenderImgui()
 	{
 		m_player->SetSprite(960, 15, spriteFrame);
 	}
-	if (ImGui::Button("Test Sprite"))
-	{
-		int i = 1;
-		i++;
-		m_player->SetSprite(960, 15, i);
-	}
 	ImGui::Separator();
-	if (ImGui::Button("Quit")) { this->quit = true; }
+	if (ImGui::Button("Quit")) { EndState(); }
 	ImGui::End();
 	ImGui::SFML::Render(*this->window);
 }

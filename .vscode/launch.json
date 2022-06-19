@@ -14,7 +14,7 @@
             },
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/build/a",
+            "program": "${workspaceFolder}/build/engine",
             "cwd": "${workspaceFolder}/build",
             "preLaunchTask": "make",
             "args": [],
