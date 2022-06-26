@@ -25,6 +25,6 @@
 - ImGui-SFML: Library which allows you to use Dear ImGui with SFML binding 
 - <https://github.com/eliasdaler/imgui-sfml>
 
-# p.s.
+# Credit for SFML & ImGui Template
 - https://github.com/lutrarutra/SFML-Project-Template
 - Creator: lutrarutra
