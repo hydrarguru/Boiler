@@ -1,5 +1,7 @@
 #pragma once
-#include "Core/boiler.h"
+#include <SFML/Graphics.hpp>
+#include "SFML/System.hpp"
+#include <iostream>
 #include "Components/MovementComponent.h"
 
 

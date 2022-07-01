@@ -1,9 +1,18 @@
 #pragma once
-#include "State.h"
 #include "GameState.h"
+#include "State.h"
+
+#include <SFML/Graphics.hpp>
+#include <SFML/System.hpp>
+#include <SFML/Window.hpp>
+
 #include "GUI/Button.h"
 #include "GUI/Label.h"
 #include "Entity/Player.h"
+
+#include <imgui-SFML.h>
+#include <imgui.h>
+
 
 class GameState : public State
 {
@@ -16,6 +25,9 @@ private:
 	std::map<int, Button*> m_buttonList;
 	std::map<int, Label*> m_labelList;
 	Player* m_player;
+
+
+	std::string ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
 
 	//Functions
 	void InitPlayer();

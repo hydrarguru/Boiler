@@ -1,5 +1,8 @@
 #pragma once
-#include "Core/boiler.h"
+#include <stack>
+#include <iostream>
+#include <SFML/Graphics.hpp>
+#include "SFML/System.hpp"
 
 class State
 {

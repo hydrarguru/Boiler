@@ -27,7 +27,7 @@ void GameState::InitPlayer()
 
 void GameState::InitFont()
 {
-	if (this->m_font.loadFromFile(ENGINE_FONT)) { DebugLog("GameState::Loaded Fonts"); }
+	if (this->m_font.loadFromFile(ENGINE_FONT)) { std::cout << "GameState::Loaded Fonts" << std::endl; }
 }
 
 void GameState::InitGUI()

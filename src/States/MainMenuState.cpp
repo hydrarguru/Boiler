@@ -27,7 +27,7 @@ void MainMenuState::InitFont()
 	{
 		throw("ERROR::MainMenuState::COULD NOT LOAD FONT");
 	}
-	DebugLog("MainMenuState::Loaded Fonts");
+	std::cout << "MainMenuState::Loaded Fonts" << std::endl;
 }
 
 void MainMenuState::InitGUI()

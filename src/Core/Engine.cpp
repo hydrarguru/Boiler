@@ -49,8 +49,9 @@ void Engine::InitImGui()
 	io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;
 	if(std::filesystem::exists(ENGINE_FONT_ALT))
 	{
+		char* font = const_cast<char*>(ENGINE_FONT_ALT.c_str());
 		io.Fonts->Clear();
-		io.Fonts->AddFontFromFileTTF(ENGINE_FONT_ALT, 18.f);
+		io.Fonts->AddFontFromFileTTF(font, 18.f);
 		ImGui::SFML::UpdateFontTexture();
 	}
 	else
@@ -72,7 +73,7 @@ void Engine::GenerateConfig()
 {
 	if (!std::filesystem::exists(ENGINE_CONFIG))
 	{
-		DebugLog("Generating config file");
+		std::cout << "Generating config file..." << std::endl;
 		INIFile file(ENGINE_CONFIG);
 		INIStructure config;
 		config["Engine"]["w_title"] = "Boiler";

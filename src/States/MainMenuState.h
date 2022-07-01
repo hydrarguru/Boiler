@@ -4,6 +4,7 @@
 #include "../GUI/Button.h"
 #include "../GUI/Label.h"
 
+
 class MainMenuState : public State
 {
 private:
@@ -15,6 +16,10 @@ private:
 	std::map<int, Label*> labelList;
 	sf::Clock dtClock;
 	sf::Color bgColor;
+
+
+	std::string ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
+
 
 	//Functions
 	void InitBackground();

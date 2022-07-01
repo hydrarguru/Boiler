@@ -1,7 +1,15 @@
 #pragma once
-#include "Core/boiler.h"
+#include <SFML/Graphics.hpp>
+#include "SFML/System.hpp"
+#include <filesystem>
+
 #include "States/State.h"
 #include "States/MainMenuState.h"
+
+#include "mini.h"
+using namespace mINI;
+
+
 
 class Engine
 {
@@ -17,6 +25,10 @@ private:
 	bool vsync;
 	bool fullscreen;
 	unsigned antialiasing;
+
+	std::string ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
+	std::string ENGINE_FONT_ALT = "fonts/Roboto.ttf";
+	std::string ENGINE_CONFIG = "engine.ini";
 
 
 	sf::ContextSettings windowSettings;
