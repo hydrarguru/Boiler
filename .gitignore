@@ -43,6 +43,3 @@ bin
 *.exe
 *.out
 *.app
-
-#MacOS
-.DS_Store

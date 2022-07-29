@@ -20,6 +20,7 @@ FetchContent_MakeAvailable(imgui)
 FetchContent_Declare(
   imgui-sfml
   GIT_REPOSITORY "https://github.com/eliasdaler/imgui-sfml"
-  GIT_TAG 82dc2033e51b8323857c3ae1cf1f458b3a933c35 # 2.3
+  #GIT_TAG 82dc2033e51b8323857c3ae1cf1f458b3a933c35 # 2.3
+  GIT_TAG 15753d56403a7aeb1cae12fd930cfb1d2eac5e74 # 2.5
 )
 add_subdirectory(imgui-sfml)
