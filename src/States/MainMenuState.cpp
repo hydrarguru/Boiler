@@ -60,6 +60,9 @@ void MainMenuState::UpdateButtonEvent()
 	if (this->buttonList[1]->IsPressed())
 		this->states->push(new GameState(this->window, this->supportedKeys, this->states));
 
+	if (this->buttonList[2]->IsPressed())
+		this->states->push(new SettingsMenuState(this->window, this->supportedKeys, this->states));
+
 	if (this->buttonList[3]->IsPressed())
 		this->EndState();
 }

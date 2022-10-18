@@ -1,12 +1,10 @@
 #pragma once
 #include "State.h"
-#include "GameState.h"
-#include "SettingsMenuState.h"
 #include "../GUI/Button.h"
 #include "../GUI/Label.h"
 
 
-class MainMenuState : public State
+class SettingsMenuState : public State
 {
 private:
 	//Variables
@@ -17,18 +15,15 @@ private:
 	std::map<int, Label*> labelList;
 	sf::Clock dtClock;
 	sf::Color bgColor;
-
-
 	std::string ENGINE_FONT = "fonts/OpenSans-Regular.ttf";
-
 
 	//Functions
 	void InitBackground();
 	void InitFont();
 	void InitGUI();
 public:
-	MainMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
-	virtual ~MainMenuState();
+	SettingsMenuState(sf::RenderWindow* window, std::map<std::string, int>* supportedKeys, std::stack<State*>* states);
+	virtual ~SettingsMenuState();
 
 	/*Functions*/
 	void UpdateInput(const float& dt);
