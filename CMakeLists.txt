@@ -38,6 +38,7 @@ src/GUI/Label.cpp
 src/States/GameState.cpp
 src/States/MainMenuState.cpp
 src/States/State.cpp
+src/States/SettingsMenuState.cpp
 src/Components/MovementComponent.cpp
 )
 # folder with .h files, e.g. include/
